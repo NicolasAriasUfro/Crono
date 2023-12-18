@@ -1,11 +1,16 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import CronogramaView from "@/views/CronogramaView.vue";
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: CronogramaView,
+  },
+  {
+    path: "/cronograma",
+    name: "cronograma",
+    component: CronogramaView,
   },
   {
     path: "/about",
