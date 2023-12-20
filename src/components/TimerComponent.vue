@@ -27,7 +27,7 @@ export default {
       default: "Timer",
     },
   },
-
+  expose: ["startTimer", "pauseTimer", "resetTimer"],
   data() {
     return {
       second: 0,
@@ -65,9 +65,13 @@ export default {
     },
   },
   mounted() {
+    console.info("Timer mounted id: " + this.idTimer);
     this.second = this.initialSecond;
     this.minute = this.initialMinute;
     this.hour = this.initialHour;
+  },
+  updated() {
+    console.info("Timer updated" + this.idTimer);
   },
   methods: {
     ref,
@@ -78,7 +82,6 @@ export default {
             if (this.hour === 0) {
               // Timer has reached 00:00:00, you might want to handle this case
               clearInterval(this.timerInterval);
-              console.info("Timer has ended" + this.idTimer);
               this.$emit("timer-finished", this.idTimer);
               return;
             }
@@ -98,29 +101,24 @@ export default {
       this.minute = this.initialMinute;
       this.hour = this.initialHour;
       this.started = true;
-      console.log("iniciando timer" + this.idTimer);
       if (this.paused) {
         this.paused = false;
         this.timer();
       }
     },
-    pauseTimer() {
-      this.paused = true;
-      clearInterval(this.timerInterval);
-    },
-    unpauseTimer() {
-      this.paused = false;
-      this.timer();
-    },
     pauseManager() {
       if (this.paused) {
-        this.unpauseTimer();
+        this.paused = false;
+        this.timer();
       } else {
-        this.pauseTimer();
+        this.paused = true;
+        clearInterval(this.timerInterval);
       }
     },
     resetTimer() {
-      this.pauseTimer();
+      this.paused = true;
+      this.started = false;
+      clearInterval(this.timerInterval);
       this.second = this.initialSecond;
       this.minute = this.initialMinute;
       this.hour = this.initialHour;

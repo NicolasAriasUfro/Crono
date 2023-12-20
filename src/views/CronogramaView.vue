@@ -8,9 +8,24 @@ export default defineComponent({
   data() {
     return {
       timers: [
-        { initialSecond: 5, initialMinute: 0, initialHour: 0 },
-        { initialSecond: 3, initialMinute: 0, initialHour: 0 },
-        { initialSecond: 5, initialMinute: 1, initialHour: 0 },
+        {
+          initialSecond: 5,
+          initialMinute: 0,
+          initialHour: 0,
+          name: "5 segundos",
+        },
+        {
+          initialSecond: 3,
+          initialMinute: 0,
+          initialHour: 0,
+          name: "cambio de actividad",
+        },
+        {
+          initialSecond: 5,
+          initialMinute: 1,
+          initialHour: 0,
+          name: "conclusión",
+        },
       ],
       currentTimerIndex: 0,
     };
@@ -20,16 +35,29 @@ export default defineComponent({
       if (this.currentTimerIndex >= this.timers.length) {
         return;
       }
+      this.$refs.timers[this.currentTimerIndex].startTimer();
       this.currentTimerIndex++;
-      this.$refs.timer[this.currentTimerIndex].startTimer();
+    },
+    pauseFocusedTimer() {
+      this.$refs.timers[this.currentTimerIndex].pauseManager();
+    },
+    continueFocusedTimer() {
+      this.$refs.timers[this.currentTimerIndex].pauseManager();
+    },
+    resetAllTimers() {
+      //Todo: iterar sobre los TimerComponent para reiniciar sus contadores y reiniciar el contador de id timer
     },
   },
 });
 </script>
 
 <template>
-  <div>
-    <GeneralManager />
+  <div class="crono">
+    <GeneralManager
+      @general-pause="pauseFocusedTimer"
+      @general-play="continueFocusedTimer"
+      @general-reset="resetAllTimers"
+    />
     <button @click="startNextTimer">Iniciar Siguiente Temporizador</button>
     <div v-for="(timer, index) in timers" :key="index">
       <TimerComponent
@@ -38,10 +66,16 @@ export default defineComponent({
         :initial-minute="timer.initialMinute"
         :initial-hour="timer.initialHour"
         :id-timer="index"
-        :ref="timer"
+        ref="timers"
       />
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.crono {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
