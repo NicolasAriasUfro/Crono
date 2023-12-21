@@ -27,8 +27,8 @@ export default defineComponent({
           name: "5 segundos",
         },
         {
-          initialSecond: 5,
-          initialMinute: 1,
+          initialSecond: 4,
+          initialMinute: 0,
           initialHour: 0,
           name: "conclusión",
         },
@@ -39,13 +39,15 @@ export default defineComponent({
   methods: {
     startNextTimer() {
       if (this.currentTimerIndex >= this.timers.length) {
-        return;
+        alert("Todos Los temporizadores finalizados");
+        this.currentTimerIndex = 0;
+        this.resetAllTimers();
       }
-      this.$refs.timers[this.currentTimerIndex].pauseManager();
       this.currentTimerIndex++;
+      this.$refs.timers[this.currentTimerIndex].pauseManager();
     },
     pauseFocusedTimer() {
-      if (this.currentTimerIndex <= this.timers.length) {
+      if (this.currentTimerIndex < this.timers.length) {
         this.$refs.timers[this.currentTimerIndex].pauseManager();
       }
     },
@@ -61,7 +63,6 @@ export default defineComponent({
       timersRefs.forEach((timer) => {
         timer.resetTimer();
       });
-      //Todo: iterar sobre los TimerComponent para reiniciar sus contadores y reiniciar el contador de id timer
     },
   },
 });

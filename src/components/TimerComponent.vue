@@ -141,11 +141,12 @@ export default {
   >
     <div class="right-info">
       <h4>{{ name }}</h4>
+      id: {{ idTimer }}
+
       <hr />
       <strong>{{ formattedTime }} / {{ formattedInitialTime }}</strong>
     </div>
     <div class="left-buttons">
-      <button @click="resetTimer">Reset</button>
       <font-awesome-icon icon="fa-solid fa-star" @click="mensaje" />
       <font-awesome-icon icon="fa-solid fa-lock" />
       <font-awesome-icon
@@ -183,6 +184,8 @@ export default {
   background-color: red;
 }
 .startedTimer {
-  border: greenyellow 2px solid;
+  -webkit-box-shadow: 0px 0px 27px 12px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0px 0px 27px 12px rgba(0, 0, 0, 1);
+  box-shadow: 0px 0px 27px 12px rgba(0, 0, 0, 1);
 }
 </style>
