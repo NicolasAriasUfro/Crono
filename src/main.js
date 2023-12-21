@@ -19,6 +19,8 @@ import {
   faStop,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { createPinia } from "pinia";
+const pinia = createPinia();
 /* add icons to the library */
 library.add(faLock);
 library.add(faTrash);
@@ -30,4 +32,5 @@ library.add(faStop);
 createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
   .use(router)
+  .use(pinia)
   .mount("#app");

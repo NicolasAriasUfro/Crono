@@ -1,58 +1,32 @@
 <script>
-import { defineComponent } from "vue";
 import TimerComponent from "@/components/TimerComponent.vue";
 import GeneralManager from "@/components/GeneralManager.vue";
-
-export default defineComponent({
+import { useScheduleStore } from "@/stores/SheduleStore";
+export default {
   components: { GeneralManager, TimerComponent },
   data() {
     return {
-      timers: [
-        {
-          initialSecond: 5,
-          initialMinute: 0,
-          initialHour: 0,
-          name: "5 segundos",
-        },
-        {
-          initialSecond: 3,
-          initialMinute: 0,
-          initialHour: 0,
-          name: "cambio de actividad",
-        },
-        {
-          initialSecond: 7,
-          initialMinute: 0,
-          initialHour: 0,
-          name: "5 segundos",
-        },
-        {
-          initialSecond: 4,
-          initialMinute: 0,
-          initialHour: 0,
-          name: "conclusión",
-        },
-      ],
       currentTimerIndex: 0,
     };
   },
   methods: {
+    useScheduleStore,
     startNextTimer() {
-      if (this.currentTimerIndex >= this.timers.length) {
+      if (this.currentTimerIndex >= useScheduleStore().lengthSchedules - 1) {
         alert("Todos Los temporizadores finalizados");
-        this.currentTimerIndex = 0;
         this.resetAllTimers();
+        return;
       }
       this.currentTimerIndex++;
       this.$refs.timers[this.currentTimerIndex].pauseManager();
     },
     pauseFocusedTimer() {
-      if (this.currentTimerIndex < this.timers.length) {
+      if (this.currentTimerIndex < useScheduleStore().lengthSchedules) {
         this.$refs.timers[this.currentTimerIndex].pauseManager();
       }
     },
     continueFocusedTimer() {
-      if (this.currentTimerIndex < this.timers.length) {
+      if (this.currentTimerIndex < useScheduleStore().lengthSchedules) {
         this.$refs.timers[this.currentTimerIndex].pauseManager();
       }
     },
@@ -65,7 +39,7 @@ export default defineComponent({
       });
     },
   },
-});
+};
 </script>
 
 <template>
@@ -75,8 +49,8 @@ export default defineComponent({
       @general-play="continueFocusedTimer"
       @general-reset="resetAllTimers"
     />
-    current ID = {{ currentTimerIndex }}
-    <div v-for="(timer, index) in timers" :key="index">
+    current id {{ currentTimerIndex }}
+    <div v-for="(timer, index) in useScheduleStore().schedules" :key="index">
       <TimerComponent
         @timer-finished="startNextTimer"
         :initial-second="timer.initialSecond"
