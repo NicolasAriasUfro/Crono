@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { ref } from "@vue/reactivity";
 
 export default {
-  name: "TimerComponent",
   components: { FontAwesomeIcon },
   props: {
     idTimer: {
@@ -27,7 +26,7 @@ export default {
       default: "Timer",
     },
   },
-  expose: ["startTimer", "pauseTimer", "resetTimer"],
+  expose: ["startTimer", "pauseManager", "resetTimer"],
   data() {
     return {
       second: 0,
@@ -65,13 +64,9 @@ export default {
     },
   },
   mounted() {
-    console.info("Timer mounted id: " + this.idTimer);
     this.second = this.initialSecond;
     this.minute = this.initialMinute;
     this.hour = this.initialHour;
-  },
-  updated() {
-    console.info("Timer updated" + this.idTimer);
   },
   methods: {
     ref,
@@ -80,7 +75,9 @@ export default {
         if (this.second === 0) {
           if (this.minute === 0) {
             if (this.hour === 0) {
-              // Timer has reached 00:00:00, you might want to handle this case
+              // Timer has reached 00:00:00
+              this.started = false;
+              this.paused = true;
               clearInterval(this.timerInterval);
               this.$emit("timer-finished", this.idTimer);
               return;
@@ -101,14 +98,14 @@ export default {
       this.minute = this.initialMinute;
       this.hour = this.initialHour;
       this.started = true;
-      if (this.paused) {
-        this.paused = false;
-        this.timer();
-      }
+
+      this.paused = false;
+      this.timer();
     },
     pauseManager() {
       if (this.paused) {
         this.paused = false;
+        this.started = true;
         this.timer();
       } else {
         this.paused = true;
@@ -116,9 +113,9 @@ export default {
       }
     },
     resetTimer() {
+      clearInterval(this.timerInterval);
       this.paused = true;
       this.started = false;
-      clearInterval(this.timerInterval);
       this.second = this.initialSecond;
       this.minute = this.initialMinute;
       this.hour = this.initialHour;
@@ -127,7 +124,7 @@ export default {
       this.esPrioritaria = !this.esPrioritaria;
     },
     marcarComoEliminado() {
-      this.isDeleted = true;
+      this.isDeleted = !this.isDeleted;
     },
   },
 };
@@ -136,22 +133,25 @@ export default {
 <template>
   <div
     class="timer"
-    :class="{ priorizada: esPrioritaria, eliminada: isDeleted }"
+    :class="{
+      priorizada: esPrioritaria,
+      eliminada: isDeleted,
+      startedTimer: started,
+    }"
   >
     <div class="right-info">
-      id = {{ idTimer }}
-      <h5>{{ name }}</h5>
+      <h4>{{ name }}</h4>
+      <hr />
       <strong>{{ formattedTime }} / {{ formattedInitialTime }}</strong>
     </div>
     <div class="left-buttons">
-      <button v-if="!started" @click="startTimer">Start</button>
-      <button v-else @click="pauseManager">
-        {{ paused ? "Continue" : "Pause" }}
-      </button>
       <button @click="resetTimer">Reset</button>
       <font-awesome-icon icon="fa-solid fa-star" @click="mensaje" />
-      <font-awesome-icon icon="fa-solid fa-lock" @click="marcarComoEliminado" />
-      <font-awesome-icon icon="fa-solid fa-trash" />
+      <font-awesome-icon icon="fa-solid fa-lock" />
+      <font-awesome-icon
+        icon="fa-solid fa-trash"
+        @click="marcarComoEliminado"
+      />
       <font-awesome-icon icon="fa-solid fa-moon" />
     </div>
   </div>
@@ -170,8 +170,6 @@ export default {
 .right-info {
   text-align: left;
 }
-.p {
-}
 .left-buttons {
   text-align: right;
 }
@@ -183,5 +181,8 @@ export default {
 }
 .eliminada {
   background-color: red;
+}
+.startedTimer {
+  border: greenyellow 2px solid;
 }
 </style>

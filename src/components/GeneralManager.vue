@@ -1,14 +1,22 @@
 <script>
 export default {
   emits: ["general-pause", "general-play", "general-reset"],
+  data() {
+    return {
+      paused: true,
+    };
+  },
   methods: {
     generalPause() {
+      this.paused = true;
       this.$emit("general-pause");
     },
     generalPlay() {
+      this.paused = false;
       this.$emit("general-play");
     },
     generalReset() {
+      this.paused = true;
       this.$emit("general-reset");
     },
   },
@@ -17,11 +25,11 @@ export default {
 
 <template>
   <div class="general-bar">
-    <button @click.prevent="generalPause">
-      <font-awesome-icon icon="fa-solid fa-pause" />
-    </button>
-    <button @click.prevent="generalPlay">
+    <button v-if="paused" @click.prevent="generalPlay">
       <font-awesome-icon icon="fa-solid fa-play" />
+    </button>
+    <button v-else @click.prevent="generalPause">
+      <font-awesome-icon icon="fa-solid fa-pause" />
     </button>
     <button @click.prevent="generalReset">
       <font-awesome-icon icon="fa-solid fa-stop" />

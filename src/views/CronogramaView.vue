@@ -21,6 +21,12 @@ export default defineComponent({
           name: "cambio de actividad",
         },
         {
+          initialSecond: 7,
+          initialMinute: 0,
+          initialHour: 0,
+          name: "5 segundos",
+        },
+        {
           initialSecond: 5,
           initialMinute: 1,
           initialHour: 0,
@@ -35,16 +41,26 @@ export default defineComponent({
       if (this.currentTimerIndex >= this.timers.length) {
         return;
       }
-      this.$refs.timers[this.currentTimerIndex].startTimer();
+      this.$refs.timers[this.currentTimerIndex].pauseManager();
       this.currentTimerIndex++;
     },
     pauseFocusedTimer() {
-      this.$refs.timers[this.currentTimerIndex].pauseManager();
+      if (this.currentTimerIndex <= this.timers.length) {
+        this.$refs.timers[this.currentTimerIndex].pauseManager();
+      }
     },
     continueFocusedTimer() {
-      this.$refs.timers[this.currentTimerIndex].pauseManager();
+      if (this.currentTimerIndex < this.timers.length) {
+        this.$refs.timers[this.currentTimerIndex].pauseManager();
+      }
     },
     resetAllTimers() {
+      this.currentTimerIndex = 0;
+      const timersRefs = this.$refs.timers;
+
+      timersRefs.forEach((timer) => {
+        timer.resetTimer();
+      });
       //Todo: iterar sobre los TimerComponent para reiniciar sus contadores y reiniciar el contador de id timer
     },
   },
@@ -58,13 +74,14 @@ export default defineComponent({
       @general-play="continueFocusedTimer"
       @general-reset="resetAllTimers"
     />
-    <button @click="startNextTimer">Iniciar Siguiente Temporizador</button>
+    current ID = {{ currentTimerIndex }}
     <div v-for="(timer, index) in timers" :key="index">
       <TimerComponent
         @timer-finished="startNextTimer"
         :initial-second="timer.initialSecond"
         :initial-minute="timer.initialMinute"
         :initial-hour="timer.initialHour"
+        :name="timer.name"
         :id-timer="index"
         ref="timers"
       />
