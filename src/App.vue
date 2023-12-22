@@ -6,7 +6,7 @@
       <v-tab to="configuracion">Configuración</v-tab>
     </v-tabs>
     <router-view />
-    <v-footer app>
+    <v-footer>
       <span class="white--text">Made with ❤️ by @Nico</span>
     </v-footer>
   </v-app>

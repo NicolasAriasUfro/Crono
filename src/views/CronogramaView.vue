@@ -49,7 +49,6 @@ export default {
       @general-play="continueFocusedTimer"
       @general-reset="resetAllTimers"
     />
-    current id {{ currentTimerIndex }}
     <div
       v-for="(timer, index) in useScheduleStore().schedules"
       :key="index"

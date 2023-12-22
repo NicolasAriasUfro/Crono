@@ -135,8 +135,6 @@ export default {
   <v-card
     elevated
     ma-2
-    :title="name"
-    :subtitle="formattedTime + '/' + formattedInitialTime"
     class="timer rounded"
     :class="{
       priorizada: esPrioritaria,
@@ -144,10 +142,15 @@ export default {
       startedTimer: started,
     }"
   >
-    <v-select :items="timerOptions"> </v-select>
+    <v-row>
+      <v-col>
+        <h3>{{ name }}</h3>
+        <strong> {{ formattedTime }} / {{ formattedInitialTime }}</strong>
+      </v-col>
+      <v-col><v-select :items="timerOptions"> </v-select></v-col>
+    </v-row>
+
     <v-card-actions>
-      <v-btn> Button </v-btn>
-      <v-btn> Button </v-btn>
       <font-awesome-icon icon="fa-solid fa-star" @click="mensaje" />
       <font-awesome-icon icon="fa-solid fa-lock" />
       <font-awesome-icon
