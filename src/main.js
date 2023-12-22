@@ -2,6 +2,16 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 
+// Vuetify
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
+const vuetify = createVuetify({
+  components,
+  directives,
+});
+
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
 
@@ -32,5 +42,6 @@ library.add(faStop);
 createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
   .use(router)
+  .use(vuetify)
   .use(pinia)
   .mount("#app");

@@ -1,6 +1,15 @@
 <template>
-  <MainHeader />
-  <router-view />
+  <v-app>
+    <v-tabs color="primary" align-tabs="center">
+      <v-tab to="cronograma">Cronograma</v-tab>
+      <v-tab to="mis-cronogramas">Mis Temporizadores</v-tab>
+      <v-tab to="configuracion">Configuración</v-tab>
+    </v-tabs>
+    <router-view />
+    <v-footer app>
+      <span class="white--text">Made with ❤️ by @Nico</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <style>
@@ -17,6 +26,4 @@
   padding: 0;
 }
 </style>
-<script setup>
-import MainHeader from "@/components/MainHeader.vue";
-</script>
+<script setup></script>

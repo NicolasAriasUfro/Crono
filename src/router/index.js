@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import CronogramaView from "@/views/CronogramaView.vue";
+import ModifyScheduleView from "@/views/ModifyScheduleView.vue";
+import ConfigView from "@/views/ConfigView.vue";
 
 const routes = [
   {
@@ -11,6 +13,16 @@ const routes = [
     path: "/cronograma",
     name: "cronograma",
     component: CronogramaView,
+  },
+  {
+    path: "/mis-cronogramas",
+    name: "modify-schedule",
+    component: ModifyScheduleView,
+  },
+  {
+    path: "/configuracion",
+    name: "config",
+    component: ConfigView,
   },
   {
     path: "/about",

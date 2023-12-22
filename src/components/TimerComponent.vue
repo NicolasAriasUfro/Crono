@@ -29,6 +29,7 @@ export default {
   expose: ["startTimer", "pauseManager", "resetTimer"],
   data() {
     return {
+      timerOptions: ["priorizada", "normal", "baja"],
       second: 0,
       minute: 0,
       hour: 0,
@@ -131,22 +132,22 @@ export default {
 </script>
 
 <template>
-  <div
-    class="timer"
+  <v-card
+    elevated
+    ma-2
+    :title="name"
+    :subtitle="formattedTime + '/' + formattedInitialTime"
+    class="timer rounded"
     :class="{
       priorizada: esPrioritaria,
       eliminada: isDeleted,
       startedTimer: started,
     }"
   >
-    <div class="right-info">
-      <h4>{{ name }}</h4>
-      id: {{ idTimer }}
-
-      <hr />
-      <strong>{{ formattedTime }} / {{ formattedInitialTime }}</strong>
-    </div>
-    <div class="left-buttons">
+    <v-select :items="timerOptions"> </v-select>
+    <v-card-actions>
+      <v-btn> Button </v-btn>
+      <v-btn> Button </v-btn>
       <font-awesome-icon icon="fa-solid fa-star" @click="mensaje" />
       <font-awesome-icon icon="fa-solid fa-lock" />
       <font-awesome-icon
@@ -154,23 +155,11 @@ export default {
         @click="marcarComoEliminado"
       />
       <font-awesome-icon icon="fa-solid fa-moon" />
-    </div>
-  </div>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <style scoped>
-.timer {
-  padding: 0.2em;
-  background-color: #42b983;
-  border-radius: 10px;
-  margin: 0.5em;
-  width: fit-content;
-  display: flex;
-  flex-direction: row;
-}
-.right-info {
-  text-align: left;
-}
 .left-buttons {
   text-align: right;
 }
