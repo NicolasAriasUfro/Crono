@@ -1,9 +1,7 @@
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { ref } from "@vue/reactivity";
 
 export default {
-  components: { FontAwesomeIcon },
   props: {
     idTimer: {
       type: Number,
@@ -149,16 +147,6 @@ export default {
       </v-col>
       <v-col><v-select :items="timerOptions"> </v-select></v-col>
     </v-row>
-
-    <v-card-actions>
-      <font-awesome-icon icon="fa-solid fa-star" @click="mensaje" />
-      <font-awesome-icon icon="fa-solid fa-lock" />
-      <font-awesome-icon
-        icon="fa-solid fa-trash"
-        @click="marcarComoEliminado"
-      />
-      <font-awesome-icon icon="fa-solid fa-moon" />
-    </v-card-actions>
   </v-card>
 </template>
 

@@ -1,25 +1,77 @@
 <script>
-import TimerInfo from "@/components/TimerInfo.vue";
 import { useScheduleStore } from "@/stores/SheduleStore";
+import TimerComponent from "@/components/TimerComponent.vue";
 
 export default {
   name: "ModifyScheduleView",
-  methods: { useScheduleStore },
-  components: { TimerInfo },
+  methods: {
+    useScheduleStore,
+    addNewTimer() {},
+  },
+  components: { TimerComponent },
+  data() {
+    return {
+      hh: "",
+      mm: "",
+      ss: "",
+      rules: [
+        (v) => v >= 0 || "No puede ser negativo",
+        (v) => v <= 59 || "No puede ser mayor a 59",
+      ],
+      rulesName: [(v) => v != null || "Ingrese un nombre"],
+    };
+  },
 };
 </script>
 
 <template>
   Mi Cronograma
   <div v-for="(timer, index) in useScheduleStore().schedules" :key="index">
-    <TimerInfo
+    <TimerComponent
+      class="selected"
       :initial-second="timer.initialSecond"
       :initial-minute="timer.initialMinute"
       :initial-hour="timer.initialHour"
       :name="timer.name"
     >
-    </TimerInfo>
+    </TimerComponent>
   </div>
+  <v-divider class="ma-4"></v-divider>
+
+  <v-form @submit.prevent="">
+    <v-text-field v-model="name" :rules="rulesName" label="Nombre">
+    </v-text-field>
+    <v-row color="red">
+      <v-col>
+        <v-text-field
+          type="number"
+          v-model="hh"
+          :rules="rules"
+          label="horas"
+        ></v-text-field>
+      </v-col>
+      <v-col>
+        <v-text-field
+          class="w-30"
+          min="0"
+          max="59"
+          type="number"
+          v-model="mm"
+          :rules="rules"
+          label="Minutos"
+        ></v-text-field>
+      </v-col>
+      <v-col>
+        <v-text-field
+          type="number"
+          v-model="ss"
+          :rules="rules"
+          label="Segundos"
+        ></v-text-field>
+      </v-col>
+    </v-row>
+    <v-btn type="submit" @click="addNewTimer">Agregar</v-btn>
+  </v-form>
 </template>
 
 <style scoped></style>
