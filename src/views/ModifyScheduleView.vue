@@ -6,11 +6,14 @@ export default {
   name: "ModifyScheduleView",
   methods: {
     useScheduleStore,
-    addNewTimer() {},
+    addNewTimer() {
+      useScheduleStore().addTimer(this.name, this.hh, this.mm, this.ss);
+    },
   },
   components: { TimerComponent },
   data() {
     return {
+      name: "",
       hh: "",
       mm: "",
       ss: "",
@@ -18,7 +21,6 @@ export default {
         (v) => v >= 0 || "No puede ser negativo",
         (v) => v <= 59 || "No puede ser mayor a 59",
       ],
-      rulesName: [(v) => v != null || "Ingrese un nombre"],
     };
   },
 };
@@ -26,7 +28,11 @@ export default {
 
 <template>
   Mi Cronograma
-  <div v-for="(timer, index) in useScheduleStore().schedules" :key="index">
+  <div
+    class="ma-5"
+    v-for="(timer, index) in useScheduleStore().schedules"
+    :key="index"
+  >
     <TimerComponent
       class="selected"
       :initial-second="timer.initialSecond"
@@ -39,8 +45,7 @@ export default {
   <v-divider class="ma-4"></v-divider>
 
   <v-form @submit.prevent="">
-    <v-text-field v-model="name" :rules="rulesName" label="Nombre">
-    </v-text-field>
+    <v-text-field v-model="name" label="Nombre" type="text"> </v-text-field>
     <v-row color="red">
       <v-col>
         <v-text-field

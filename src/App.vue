@@ -1,6 +1,11 @@
 <template>
   <v-app>
-    <v-tabs color="primary" align-tabs="center">
+    <v-tabs
+      color="blue-grey-lighten-5"
+      align-tabs="center"
+      class="bg-blue-grey"
+      center-active
+    >
       <v-tab to="cronograma">Cronograma</v-tab>
       <v-tab to="mis-cronogramas">Mis Temporizadores</v-tab>
       <v-tab to="configuracion">Configuración</v-tab>

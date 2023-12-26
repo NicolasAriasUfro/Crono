@@ -3,16 +3,22 @@ export const useScheduleStore = defineStore("schedule", {
   state: () => ({
     schedules: [
       {
-        initialSecond: 5,
-        initialMinute: 0,
+        initialSecond: 0,
+        initialMinute: 15,
         initialHour: 0,
-        name: "5 segundos",
+        name: "música previa",
       },
       {
-        initialSecond: 3,
-        initialMinute: 0,
+        initialSecond: 0,
+        initialMinute: 2,
         initialHour: 0,
-        name: "cambio de actividad",
+        name: "bienvenida",
+      },
+      {
+        initialSecond: 0,
+        initialMinute: 7,
+        initialHour: 0,
+        name: "dinámica",
       },
     ],
   }),
@@ -21,5 +27,14 @@ export const useScheduleStore = defineStore("schedule", {
       return this.schedules.length;
     },
   },
-  actions: {},
+  actions: {
+    addTimer(name, initialHour, initialMinute, initialSecond) {
+      this.schedules.push({
+        initialSecond,
+        initialMinute,
+        initialHour,
+        name,
+      });
+    },
+  },
 });

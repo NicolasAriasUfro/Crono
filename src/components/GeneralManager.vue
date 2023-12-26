@@ -40,11 +40,17 @@ export default {
 <style scoped>
 .general-bar {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   background-color: #f1f1f1;
   padding: 10px;
   border-radius: 10px;
   width: 100%;
+}
+button {
+  background-color: transparent;
+  border: none;
+  font-size: larger;
+  margin: 0 10px;
 }
 </style>
