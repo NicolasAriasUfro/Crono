@@ -43,10 +43,10 @@ export default {
 
   <div
     class="ma-5"
-    v-for="index in useScheduleStore().schedules[selectedSchedule]"
-    :key="index"
+    v-for="timer in useScheduleStore().schedules[selectedSchedule].timers"
+    :key="timer.id"
   >
-    <TimerComponent class="selected" :id-timer="index"> </TimerComponent>
+    <TimerComponent class="selected" :id-timer="timer.id"> </TimerComponent>
   </div>
   <v-divider class="ma-4"></v-divider>
 

@@ -52,7 +52,7 @@ export default {
     <div
       v-for="timer in useScheduleStore().schedules[
         useScheduleStore().selectedSchedule
-      ]"
+      ].timers"
       :key="timer.id"
       class="ma-2 w-75"
     >
