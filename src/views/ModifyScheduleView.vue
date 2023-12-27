@@ -7,8 +7,7 @@ export default {
   methods: {
     useScheduleStore,
     addNewTimer() {
-      const seconds = this.hh * 3600 + this.mm * 60 + this.ss;
-      useScheduleStore().addTimer(this.name, seconds);
+      useScheduleStore().addTimer(this.name, this.totalSeconds);
     },
   },
   components: { TimerComponent },
@@ -28,6 +27,9 @@ export default {
     selectedSchedule() {
       return useScheduleStore().selectedSchedule;
     },
+    totalSeconds() {
+      return this.hh * 3600 + this.mm * 60 + this.ss;
+    },
   },
 };
 </script>
@@ -37,7 +39,9 @@ export default {
   <v-btn @click.prevent="useScheduleStore().addSchedule('primer')">
     agregar Cronograma
   </v-btn>
-  <v-btn @click.prevent="useScheduleStore().addTimer('bienvenida', 120)">
+  <v-btn
+    @click.prevent="useScheduleStore().addTimer(this.name, this.totalSeconds)"
+  >
     agregar Timer
   </v-btn>
 

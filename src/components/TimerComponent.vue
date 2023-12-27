@@ -47,13 +47,26 @@ export default {
 
       return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     },
+    name() {
+      const selectedSchedule =
+        useScheduleStore().schedules[useScheduleStore().selectedSchedule];
+      const timer = selectedSchedule.timers.find((t) => t.id === this.idTimer);
+
+      return timer ? timer.name : 0;
+    },
     actualSeconds() {
-      return useScheduleStore().schedules[useScheduleStore().selectedSchedule]
-        .timers[this.idTimer].actualSeconds;
+      const selectedSchedule =
+        useScheduleStore().schedules[useScheduleStore().selectedSchedule];
+      const timer = selectedSchedule.timers.find((t) => t.id === this.idTimer);
+
+      return timer ? timer.actualSeconds : 0;
     },
     initialSeconds() {
-      return useScheduleStore().schedules[useScheduleStore().selectedSchedule]
-        .timers[this.idTimer].initialSeconds;
+      const selectedSchedule =
+        useScheduleStore().schedules[useScheduleStore().selectedSchedule];
+      const timer = selectedSchedule.timers.find((t) => t.id === this.idTimer);
+
+      return timer ? timer.initialSeconds : 0;
     },
   },
   methods: {
@@ -115,7 +128,6 @@ export default {
       <v-col>
         <h3>{{ name }}</h3>
         <strong> {{ formattedActualTime }} / {{ formattedInitialTime }}</strong>
-        actual seconds = {{ actualSeconds }} from timer {{ idTimer }}
       </v-col>
       <v-col><v-select :items="timerOptions"> </v-select></v-col>
     </v-row>

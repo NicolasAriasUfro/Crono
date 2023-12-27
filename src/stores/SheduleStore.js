@@ -72,11 +72,30 @@ export const useScheduleStore = defineStore("schedule", {
         }
       }
     },
-    decreaseTimer(id, seconds) {
-      this.schedules[id].actualSeconds -= seconds;
+    decreaseTimer(idTimer, seconds) {
+      const selectedSchedule =
+        useScheduleStore().schedules[this.selectedSchedule];
+      const timerIndex = selectedSchedule.timers.findIndex(
+        (t) => t.id === idTimer
+      );
+
+      if (timerIndex !== -1) {
+        selectedSchedule.timers[timerIndex].actualSeconds -= seconds;
+        // Puedes agregar lógica adicional aquí, como manejar el caso en que actualSeconds sea menor que 0.
+      }
     },
-    resetTimer(id) {
-      this.schedules[id].actualSeconds = this.schedules[id].initialSeconds;
+    resetTimer(idTimer) {
+      const selectedSchedule =
+        useScheduleStore().schedules[this.selectedSchedule];
+      const timerIndex = selectedSchedule.timers.findIndex(
+        (t) => t.id === idTimer
+      );
+
+      if (timerIndex !== -1) {
+        const initialSeconds =
+          selectedSchedule.timers[timerIndex].initialSeconds;
+        selectedSchedule.timers[timerIndex].actualSeconds = initialSeconds;
+      }
     },
   },
 });
