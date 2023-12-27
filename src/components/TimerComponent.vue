@@ -8,16 +8,11 @@ export default {
       type: Number,
       default: null,
     },
-    name: {
-      type: String,
-      default: "Timer",
-    },
   },
   expose: ["startTimer", "pauseManager", "resetTimer"],
   data() {
     return {
       timerOptions: ["priorizada", "normal", "baja"],
-      timeString: "00:00:00",
       paused: true,
       started: false,
       timerInterval: null,
@@ -53,10 +48,12 @@ export default {
       return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     },
     actualSeconds() {
-      return useScheduleStore().schedules[this.idTimer].actualSeconds;
+      return useScheduleStore().schedules[useScheduleStore().selectedSchedule]
+        .timers[this.idTimer].actualSeconds;
     },
     initialSeconds() {
-      return useScheduleStore().schedules[this.idTimer].initialSeconds;
+      return useScheduleStore().schedules[useScheduleStore().selectedSchedule]
+        .timers[this.idTimer].initialSeconds;
     },
   },
   methods: {
@@ -126,9 +123,6 @@ export default {
 </template>
 
 <style scoped>
-.left-buttons {
-  text-align: right;
-}
 * {
   //border: orangered 1px solid;
 }
@@ -137,10 +131,5 @@ export default {
 }
 .eliminada {
   background-color: red;
-}
-.startedTimer {
-  -webkit-box-shadow: 0px 0px 27px 12px rgba(0, 0, 0, 1);
-  -moz-box-shadow: 0px 0px 27px 12px rgba(0, 0, 0, 1);
-  box-shadow: 0px 0px 27px 12px rgba(0, 0, 0, 1);
 }
 </style>

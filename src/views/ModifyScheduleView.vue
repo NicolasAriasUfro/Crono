@@ -24,18 +24,29 @@ export default {
       ],
     };
   },
+  computed: {
+    selectedSchedule() {
+      return useScheduleStore().selectedSchedule;
+    },
+  },
 };
 </script>
 
 <template>
   Mi Cronograma
+  <v-btn @click.prevent="useScheduleStore().addSchedule('primer')">
+    agregar Cronograma
+  </v-btn>
+  <v-btn @click.prevent="useScheduleStore().addTimer('bienvenida', 120)">
+    agregar Timer
+  </v-btn>
+
   <div
     class="ma-5"
-    v-for="(timer, index) in useScheduleStore().schedules"
+    v-for="index in useScheduleStore().schedules[selectedSchedule]"
     :key="index"
   >
-    <TimerComponent class="selected" :id-timer="index" :name="timer.name">
-    </TimerComponent>
+    <TimerComponent class="selected" :id-timer="index"> </TimerComponent>
   </div>
   <v-divider class="ma-4"></v-divider>
 

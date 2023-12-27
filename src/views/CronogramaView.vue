@@ -50,14 +50,15 @@ export default {
       @general-reset="resetAllTimers"
     />
     <div
-      v-for="(timer, index) in useScheduleStore().schedules"
-      :key="index"
+      v-for="timer in useScheduleStore().schedules[
+        useScheduleStore().selectedSchedule
+      ]"
+      :key="timer.id"
       class="ma-2 w-75"
     >
       <TimerComponent
         @timer-finished="startNextTimer"
-        :name="timer.name"
-        :id-timer="index"
+        :id-timer="timer.id"
         ref="timers"
       />
     </div>

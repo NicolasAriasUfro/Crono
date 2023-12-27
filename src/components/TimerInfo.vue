@@ -28,9 +28,6 @@ export default {
 
 <template>
   {{ name }}
-  {{ initialSecond }}
-  {{ initialMinute }}
-  {{ initialHour }}
   {{ idTimer }}
 </template>
 
