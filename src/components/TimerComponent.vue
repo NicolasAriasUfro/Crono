@@ -67,6 +67,9 @@ export default {
     this.minute = this.initialMinute;
     this.hour = this.initialHour;
   },
+  unmounted() {
+    console.log("unmounted");
+  },
   methods: {
     ref,
     timer() {
@@ -138,6 +141,8 @@ export default {
       priorizada: esPrioritaria,
       eliminada: isDeleted,
       startedTimer: started,
+      'bg-green': started,
+      'elevation-20': started,
     }"
   >
     <v-row>
