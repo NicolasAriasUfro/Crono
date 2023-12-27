@@ -56,9 +56,6 @@ export default {
     >
       <TimerComponent
         @timer-finished="startNextTimer"
-        :initial-second="timer.initialSecond"
-        :initial-minute="timer.initialMinute"
-        :initial-hour="timer.initialHour"
         :name="timer.name"
         :id-timer="index"
         ref="timers"

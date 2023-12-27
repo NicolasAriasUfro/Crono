@@ -7,7 +7,8 @@ export default {
   methods: {
     useScheduleStore,
     addNewTimer() {
-      useScheduleStore().addTimer(this.name, this.hh, this.mm, this.ss);
+      const seconds = this.hh * 3600 + this.mm * 60 + this.ss;
+      useScheduleStore().addTimer(this.name, seconds);
     },
   },
   components: { TimerComponent },
@@ -33,13 +34,7 @@ export default {
     v-for="(timer, index) in useScheduleStore().schedules"
     :key="index"
   >
-    <TimerComponent
-      class="selected"
-      :initial-second="timer.initialSecond"
-      :initial-minute="timer.initialMinute"
-      :initial-hour="timer.initialHour"
-      :name="timer.name"
-    >
+    <TimerComponent class="selected" :id-timer="index" :name="timer.name">
     </TimerComponent>
   </div>
   <v-divider class="ma-4"></v-divider>

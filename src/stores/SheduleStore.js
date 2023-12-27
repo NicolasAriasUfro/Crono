@@ -3,22 +3,19 @@ export const useScheduleStore = defineStore("schedule", {
   state: () => ({
     schedules: [
       {
-        initialSecond: 0,
-        initialMinute: 15,
-        initialHour: 0,
-        name: "música previa",
+        initialSeconds: 2,
+        actualSeconds: 2,
+        name: "intro",
       },
       {
-        initialSecond: 0,
-        initialMinute: 2,
-        initialHour: 0,
-        name: "bienvenida",
+        initialSeconds: 5,
+        actualSeconds: 5,
+        name: "interludio",
       },
       {
-        initialSecond: 0,
-        initialMinute: 7,
-        initialHour: 0,
-        name: "dinámica",
+        initialSeconds: 3,
+        actualSeconds: 3,
+        name: "final",
       },
     ],
   }),
@@ -28,13 +25,18 @@ export const useScheduleStore = defineStore("schedule", {
     },
   },
   actions: {
-    addTimer(name, initialHour, initialMinute, initialSecond) {
+    addTimer(name, initialSeconds) {
       this.schedules.push({
-        initialSecond,
-        initialMinute,
-        initialHour,
         name,
+        initialSeconds: initialSeconds,
+        actualSeconds: initialSeconds,
       });
+    },
+    decreaseTimer(id, seconds) {
+      this.schedules[id].actualSeconds -= seconds;
+    },
+    resetTimer(id) {
+      this.schedules[id].actualSeconds = this.schedules[id].initialSeconds;
     },
   },
 });

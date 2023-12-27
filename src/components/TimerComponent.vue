@@ -1,23 +1,12 @@
 <script>
 import { ref } from "@vue/reactivity";
+import { useScheduleStore } from "@/stores/SheduleStore";
 
 export default {
   props: {
     idTimer: {
       type: Number,
       default: null,
-    },
-    initialSecond: {
-      type: Number,
-      default: 3,
-    },
-    initialMinute: {
-      type: Number,
-      default: 0,
-    },
-    initialHour: {
-      type: Number,
-      default: 0,
     },
     name: {
       type: String,
@@ -28,9 +17,6 @@ export default {
   data() {
     return {
       timerOptions: ["priorizada", "normal", "baja"],
-      second: 0,
-      minute: 0,
-      hour: 0,
       timeString: "00:00:00",
       paused: true,
       started: false,
@@ -40,65 +26,56 @@ export default {
     };
   },
   computed: {
-    formattedTime() {
-      let timeString = "";
-      timeString += this.hour < 10 ? `0${this.hour}` : this.hour + ":";
-      timeString += ":";
-      timeString += this.minute < 10 ? `0${this.minute}` : this.minute;
-      timeString += ":";
-      timeString += this.second < 10 ? `0${this.second}` : this.second;
-      return timeString;
+    formattedActualTime() {
+      const seconds = this.actualSeconds;
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainingSeconds = seconds % 60;
+
+      const formattedHours = hours < 10 ? `0${hours}` : `${hours}`;
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const formattedSeconds =
+        remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
+
+      return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     },
     formattedInitialTime() {
-      let timeString = "";
-      timeString +=
-        this.initialHour < 10 ? `0${this.initialHour}` : this.initialHour + ":";
-      timeString += ":";
-      timeString +=
-        this.initialMinute < 10 ? `0${this.initialMinute}` : this.initialMinute;
-      timeString += ":";
-      timeString +=
-        this.initialSecond < 10 ? `0${this.initialSecond}` : this.initialSecond;
-      return timeString;
+      const seconds = this.initialSeconds;
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainingSeconds = seconds % 60;
+
+      const formattedHours = hours < 10 ? `0${hours}` : `${hours}`;
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const formattedSeconds =
+        remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
+
+      return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     },
-  },
-  mounted() {
-    this.second = this.initialSecond;
-    this.minute = this.initialMinute;
-    this.hour = this.initialHour;
-  },
-  unmounted() {
-    console.log("unmounted");
+    actualSeconds() {
+      return useScheduleStore().schedules[this.idTimer].actualSeconds;
+    },
+    initialSeconds() {
+      return useScheduleStore().schedules[this.idTimer].initialSeconds;
+    },
   },
   methods: {
     ref,
     timer() {
       this.timerInterval = setInterval(() => {
-        if (this.second === 0) {
-          if (this.minute === 0) {
-            if (this.hour === 0) {
-              // Timer has reached 00:00:00
-              this.started = false;
-              this.paused = true;
-              clearInterval(this.timerInterval);
-              this.$emit("timer-finished", this.idTimer);
-              return;
-            }
-            this.hour = (this.hour - 1) % 24; // Decrease the hour and reset to 23 if necessary
-            this.minute = 59;
-          } else {
-            this.minute--;
-          }
-          this.second = 59;
+        if (this.actualSeconds <= 0) {
+          this.started = false;
+          this.paused = true;
+          clearInterval(this.timerInterval);
+          this.$emit("timer-finished", this.idTimer);
         } else {
-          this.second--;
+          const store = useScheduleStore();
+          store.decreaseTimer(this.idTimer, 1);
         }
       }, 1000);
     },
     startTimer() {
       this.second = this.initialSecond;
-      this.minute = this.initialMinute;
-      this.hour = this.initialHour;
       this.started = true;
 
       this.paused = false;
@@ -118,15 +95,7 @@ export default {
       clearInterval(this.timerInterval);
       this.paused = true;
       this.started = false;
-      this.second = this.initialSecond;
-      this.minute = this.initialMinute;
-      this.hour = this.initialHour;
-    },
-    mensaje() {
-      this.esPrioritaria = !this.esPrioritaria;
-    },
-    marcarComoEliminado() {
-      this.isDeleted = !this.isDeleted;
+      useScheduleStore().resetTimer(this.idTimer);
     },
   },
 };
@@ -148,7 +117,8 @@ export default {
     <v-row>
       <v-col>
         <h3>{{ name }}</h3>
-        <strong> {{ formattedTime }} / {{ formattedInitialTime }}</strong>
+        <strong> {{ formattedActualTime }} / {{ formattedInitialTime }}</strong>
+        actual seconds = {{ actualSeconds }} from timer {{ idTimer }}
       </v-col>
       <v-col><v-select :items="timerOptions"> </v-select></v-col>
     </v-row>
