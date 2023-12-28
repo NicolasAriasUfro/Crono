@@ -3,15 +3,17 @@ import { defineStore } from "pinia";
 export const useScheduleStore = defineStore("schedule", {
   state: () => ({
     selectedSchedule: 0,
+    selectedTimer: 0,
     schedules: [
       {
         id: 1,
         name: "Cronograma",
         timers: [
-          { id: 1, name: "bienvenida", initialSeconds: 90, actualSeconds: 90 },
+          { id: 1, name: "bienvenida", initialSeconds: 5, actualSeconds: 5 },
         ],
       },
     ],
+    paused: true,
     /*
     schedules: {
       id: Number,

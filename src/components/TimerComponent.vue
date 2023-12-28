@@ -69,6 +69,14 @@ export default {
       return timer ? timer.initialSeconds : 0;
     },
   },
+  mounted() {
+    if (this.actualSeconds < 0) {
+      this.started = false;
+      this.paused = true;
+      clearInterval(this.timerInterval);
+      this.$emit("timer-finished");
+    }
+  },
   methods: {
     ref,
     timer() {
@@ -128,6 +136,8 @@ export default {
       <v-col>
         <h3>{{ name }}</h3>
         <strong> {{ formattedActualTime }} / {{ formattedInitialTime }}</strong>
+        {{ actualSeconds }}
+        time interval = {{ timerInterval }}
       </v-col>
       <v-col><v-select :items="timerOptions"> </v-select></v-col>
     </v-row>

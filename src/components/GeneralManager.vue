@@ -1,22 +1,20 @@
 <script>
+import { useScheduleStore } from "@/stores/SheduleStore";
+
 export default {
   emits: ["general-pause", "general-play", "general-reset"],
-  data() {
-    return {
-      paused: true,
-    };
-  },
   methods: {
+    useScheduleStore,
     generalPause() {
-      this.paused = true;
+      useScheduleStore().paused = true;
       this.$emit("general-pause");
     },
     generalPlay() {
-      this.paused = false;
+      useScheduleStore().paused = false;
       this.$emit("general-play");
     },
     generalReset() {
-      this.paused = true;
+      useScheduleStore().paused = true;
       this.$emit("general-reset");
     },
   },
@@ -25,7 +23,7 @@ export default {
 
 <template>
   <div class="general-bar">
-    <button v-if="paused" @click.prevent="generalPlay">
+    <button v-if="useScheduleStore().paused" @click.prevent="generalPlay">
       <font-awesome-icon icon="fa-solid fa-play" />
     </button>
     <button v-else @click.prevent="generalPause">

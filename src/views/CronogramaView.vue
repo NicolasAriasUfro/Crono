@@ -33,6 +33,7 @@ export default {
     resetAllTimers() {
       this.currentTimerIndex = 0;
       const timersRefs = this.$refs.timers;
+      useScheduleStore().paused = true;
 
       timersRefs.forEach((timer) => {
         timer.resetTimer();

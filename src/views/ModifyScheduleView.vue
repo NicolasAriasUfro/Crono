@@ -39,11 +39,6 @@ export default {
   <v-btn @click.prevent="useScheduleStore().addSchedule('primer')">
     agregar Cronograma
   </v-btn>
-  <v-btn
-    @click.prevent="useScheduleStore().addTimer(this.name, this.totalSeconds)"
-  >
-    agregar Timer
-  </v-btn>
 
   <div
     class="ma-5"
