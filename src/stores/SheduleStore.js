@@ -42,6 +42,7 @@ export const useScheduleStore = defineStore("schedule", {
         timers: [],
       };
       this.schedules.push(newSchedule);
+      this.saveToLocalStorage();
       return newSchedule;
     },
     removeSchedule(idSchedule) {
@@ -61,6 +62,7 @@ export const useScheduleStore = defineStore("schedule", {
         actualSeconds: initialSeconds,
       };
       this.schedules[0].timers.push(newTimer);
+      this.saveToLocalStorage();
       return newTimer;
     },
     removeTimer(idSchedule, idTimer) {
@@ -94,10 +96,18 @@ export const useScheduleStore = defineStore("schedule", {
       );
 
       if (timerIndex !== -1) {
-        const initialSeconds =
+        selectedSchedule.timers[timerIndex].actualSeconds =
           selectedSchedule.timers[timerIndex].initialSeconds;
-        selectedSchedule.timers[timerIndex].actualSeconds = initialSeconds;
       }
+    },
+    loadFromLocalStorage() {
+      const storedSchedules = localStorage.getItem("schedules");
+      if (storedSchedules) {
+        this.schedules = JSON.parse(storedSchedules);
+      }
+    },
+    saveToLocalStorage() {
+      localStorage.setItem("schedules", JSON.stringify(this.schedules));
     },
   },
 });

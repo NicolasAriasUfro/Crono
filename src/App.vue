@@ -22,4 +22,7 @@
   text-align: center;
 }
 </style>
-<script setup></script>
+<script setup>
+import { useScheduleStore } from "@/stores/SheduleStore";
+useScheduleStore().loadFromLocalStorage();
+</script>
