@@ -21,6 +21,7 @@ export default {
         (v) => v >= 0 || "No puede ser negativo",
         (v) => v <= 59 || "No puede ser mayor a 59",
       ],
+      nameSchedule: "",
     };
   },
   computed: {
@@ -36,7 +37,13 @@ export default {
 
 <template>
   Mi Cronograma
-  <v-btn @click.prevent="useScheduleStore().addSchedule('primer')">
+  <v-form>
+    <v-text-field
+      label="Nombre Cronograma"
+      v-model="nameSchedule"
+    ></v-text-field>
+  </v-form>
+  <v-btn @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
     agregar Cronograma
   </v-btn>
 
