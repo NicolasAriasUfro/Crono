@@ -4,10 +4,12 @@ export const useScheduleStore = defineStore("schedule", {
   state: () => ({
     selectedSchedule: 0,
     selectedTimer: 0,
+    lastScheduleId: 0,
     schedules: [
       {
-        id: 1,
+        id: 0,
         name: "Cronograma",
+        lastTimerId: 0,
         timers: [
           { id: 1, name: "bienvenida", initialSeconds: 5, actualSeconds: 5 },
         ],
@@ -15,18 +17,18 @@ export const useScheduleStore = defineStore("schedule", {
     ],
     paused: true,
     /*
-    schedules: {
+    schedules: [
       id: Number,
       name: String,
-      schedule: {
-        timer: {
+        timers: [{
           id: Number,
           name: String,
           initialSeconds: Number,
           actualSeconds: Number,
-        },
+
+        }],
       },
-    },
+    ],
      */
   }),
   getters: {
@@ -36,8 +38,9 @@ export const useScheduleStore = defineStore("schedule", {
   },
   actions: {
     addSchedule(name) {
+      this.lastScheduleId++;
       const newSchedule = {
-        id: this.schedules.length + 1,
+        id: this.lastScheduleId,
         name,
         timers: [],
       };
@@ -54,14 +57,14 @@ export const useScheduleStore = defineStore("schedule", {
       }
     },
     addTimer(timerName, initialSeconds) {
-      console.log(timerName + initialSeconds);
+      this.schedules[this.selectedSchedule].lastTimerId++;
       const newTimer = {
-        id: this.schedules[this.selectedSchedule].timers.length + 1,
+        id: this.schedules[this.selectedSchedule].lastTimerId,
         name: timerName,
         initialSeconds,
         actualSeconds: initialSeconds,
       };
-      this.schedules[0].timers.push(newTimer);
+      this.schedules[this.selectedSchedule].timers.push(newTimer);
       this.saveToLocalStorage();
       return newTimer;
     },
