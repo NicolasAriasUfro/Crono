@@ -4,6 +4,10 @@ import { useScheduleStore } from "@/stores/SheduleStore";
 
 export default {
   props: {
+    isEditable: {
+      type: Boolean,
+      default: false,
+    },
     idTimer: {
       type: Number,
       default: null,
@@ -115,6 +119,9 @@ export default {
       this.started = false;
       useScheduleStore().resetTimer(this.idTimer);
     },
+    deleteTimer() {
+      useScheduleStore().removeTimerFromActiveSchedule(this.idTimer);
+    },
   },
 };
 </script>
@@ -136,10 +143,14 @@ export default {
       <v-col>
         <h3>{{ name }}</h3>
         <strong> {{ formattedActualTime }} / {{ formattedInitialTime }}</strong>
-        {{ actualSeconds }}
-        time interval = {{ timerInterval }}
+        <div v-if="isEditable">time interval = {{ timerInterval }}</div>
       </v-col>
-      <v-col><v-select :items="timerOptions"> </v-select></v-col>
+      <v-col>
+        <v-select :items="timerOptions"></v-select>
+      </v-col>
+      <v-col>
+        <v-btn v-if="isEditable" @click="deleteTimer">eliminar</v-btn>
+      </v-col>
     </v-row>
   </v-card>
 </template>
@@ -148,9 +159,11 @@ export default {
 * {
   //border: orangered 1px solid;
 }
+
 .priorizada {
   background-color: orange;
 }
+
 .eliminada {
   background-color: red;
 }
