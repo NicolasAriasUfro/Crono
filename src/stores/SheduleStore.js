@@ -81,6 +81,16 @@ export const useScheduleStore = defineStore("schedule", {
         }
       }
     },
+    removeTimerFromActiveSchedule(idTimer) {
+      // Remove the timer from the default schedule
+      console.log(idTimer);
+      const schedule = this.schedules[this.selectedSchedule];
+      const index = schedule.timers.findIndex((timer) => timer.id === idTimer);
+      if (index !== -1) {
+        this.schedules[this.selectedSchedule].timers.splice(index, 1);
+      }
+      this.saveToLocalStorage();
+    },
     decreaseTimer(idTimer, seconds) {
       const selectedSchedule =
         useScheduleStore().schedules[this.selectedSchedule];

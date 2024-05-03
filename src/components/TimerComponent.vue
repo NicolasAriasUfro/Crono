@@ -115,6 +115,9 @@ export default {
       this.started = false;
       useScheduleStore().resetTimer(this.idTimer);
     },
+    deleteTimer() {
+      useScheduleStore().removeTimerFromActiveSchedule(this.idTimer);
+    },
   },
 };
 </script>
@@ -140,6 +143,9 @@ export default {
         time interval = {{ timerInterval }}
       </v-col>
       <v-col><v-select :items="timerOptions"> </v-select></v-col>
+      <v-col>
+        <v-btn @click="deleteTimer">eliminar</v-btn>
+      </v-col>
     </v-row>
   </v-card>
 </template>
