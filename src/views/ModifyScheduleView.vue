@@ -56,7 +56,8 @@ export default {
     v-for="timer in useScheduleStore().schedules[selectedSchedule].timers"
     :key="timer.id"
   >
-    <TimerComponent class="selected" :id-timer="timer.id"> </TimerComponent>
+    <TimerComponent class="selected" :id-timer="timer.id" :is-editable="true">
+    </TimerComponent>
   </div>
   <v-divider class="ma-4"></v-divider>
 
