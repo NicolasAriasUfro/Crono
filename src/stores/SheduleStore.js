@@ -11,7 +11,7 @@ export const useScheduleStore = defineStore("schedule", {
         name: "Cronograma",
         lastTimerId: 0,
         timers: [
-          { id: 1, name: "bienvenida", initialSeconds: 5, actualSeconds: 5 },
+          { id: 0, name: "bienvenida", initialSeconds: 5, actualSeconds: 5 },
         ],
       },
     ],
@@ -56,14 +56,16 @@ export const useScheduleStore = defineStore("schedule", {
         this.schedules.splice(index, 1);
       }
     },
-    addTimer(timerName, initialSeconds) {
+    addTimer(nameTimer, initialSeconds) {
       this.schedules[this.selectedSchedule].lastTimerId++;
+      //create the timer
       const newTimer = {
         id: this.schedules[this.selectedSchedule].lastTimerId,
-        name: timerName,
+        name: nameTimer,
         initialSeconds,
         actualSeconds: initialSeconds,
       };
+      //add the timer
       this.schedules[this.selectedSchedule].timers.push(newTimer);
       this.saveToLocalStorage();
       return newTimer;

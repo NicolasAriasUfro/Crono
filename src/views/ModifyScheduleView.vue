@@ -7,13 +7,17 @@ export default {
   methods: {
     useScheduleStore,
     addNewTimer() {
-      useScheduleStore().addTimer(this.name, this.totalSeconds);
+      useScheduleStore().addTimer(this.nameTimer, this.totalSeconds);
+      this.nameTimer = "";
+      this.hh = "";
+      this.mm = "";
+      this.ss = "";
     },
   },
   components: { TimerComponent },
   data() {
     return {
-      name: "",
+      nameTimer: "",
       hh: "",
       mm: "",
       ss: "",
@@ -57,7 +61,8 @@ export default {
   <v-divider class="ma-4"></v-divider>
 
   <v-form @submit.prevent="">
-    <v-text-field v-model="name" label="Nombre" type="text"> </v-text-field>
+    <v-text-field v-model="nameTimer" label="Nombre" type="text">
+    </v-text-field>
     <v-row color="red">
       <v-col>
         <v-text-field
