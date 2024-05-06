@@ -1,5 +1,4 @@
 <script>
-import { ref } from "@vue/reactivity";
 import { useScheduleStore } from "@/stores/SheduleStore";
 
 export default {
@@ -13,12 +12,9 @@ export default {
       default: null,
     },
   },
-  expose: ["startTimer", "pauseManager", "resetTimer"],
   data() {
     return {
       timerOptions: ["priorizada", "normal", "baja"],
-      paused: true,
-      started: false,
       timerInterval: null,
       esPrioritaria: false,
       isDeleted: false,
@@ -77,48 +73,9 @@ export default {
     if (this.actualSeconds < 0) {
       this.started = false;
       this.paused = true;
-      clearInterval(this.timerInterval);
-      this.$emit("timer-finished");
     }
   },
   methods: {
-    ref,
-    timer() {
-      this.timerInterval = setInterval(() => {
-        if (this.actualSeconds <= 0) {
-          this.started = false;
-          this.paused = true;
-          clearInterval(this.timerInterval);
-          this.$emit("timer-finished", this.idTimer);
-        } else {
-          const store = useScheduleStore();
-          store.decreaseTimer(this.idTimer, 1);
-        }
-      }, 1000);
-    },
-    startTimer() {
-      this.second = this.initialSecond;
-      this.started = true;
-
-      this.paused = false;
-      this.timer();
-    },
-    pauseManager() {
-      if (this.paused) {
-        this.paused = false;
-        this.started = true;
-        this.timer();
-      } else {
-        this.paused = true;
-        clearInterval(this.timerInterval);
-      }
-    },
-    resetTimer() {
-      clearInterval(this.timerInterval);
-      this.paused = true;
-      this.started = false;
-      useScheduleStore().resetTimer(this.idTimer);
-    },
     deleteTimer() {
       useScheduleStore().removeTimerFromActiveSchedule(this.idTimer);
     },

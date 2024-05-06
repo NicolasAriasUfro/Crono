@@ -26,4 +26,5 @@
 <script setup>
 import { useScheduleStore } from "@/stores/SheduleStore";
 useScheduleStore().loadFromLocalStorage();
+setInterval(useScheduleStore().everySecond, 1000);
 </script>
