@@ -41,15 +41,6 @@ export default {
 
 <template>
   Mi Cronograma
-  <v-form>
-    <v-text-field
-      label="Nombre Cronograma"
-      v-model="nameSchedule"
-    ></v-text-field>
-  </v-form>
-  <v-btn @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
-    agregar Cronograma
-  </v-btn>
 
   <div
     class="ma-5"
