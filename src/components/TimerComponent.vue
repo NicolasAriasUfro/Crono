@@ -18,11 +18,16 @@ export default {
       timerInterval: null,
       esPrioritaria: false,
       isDeleted: false,
+      isActive: false,
     };
   },
   computed: {
     formattedActualTime() {
-      const seconds = this.actualSeconds;
+      const isNegativeTime = this.actualSeconds < 0;
+      let seconds = this.actualSeconds;
+      if (isNegativeTime) {
+        seconds = -this.actualSeconds;
+      }
       const hours = Math.floor(seconds / 3600);
       const minutes = Math.floor((seconds % 3600) / 60);
       const remainingSeconds = seconds % 60;
@@ -32,6 +37,9 @@ export default {
       const formattedSeconds =
         remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
 
+      if (isNegativeTime) {
+        return `-${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+      }
       return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     },
     formattedInitialTime() {
@@ -69,12 +77,7 @@ export default {
       return timer ? timer.initialSeconds : 0;
     },
   },
-  mounted() {
-    if (this.actualSeconds < 0) {
-      this.started = false;
-      this.paused = true;
-    }
-  },
+  mounted() {},
   methods: {
     deleteTimer() {
       useScheduleStore().removeTimerFromActiveSchedule(this.idTimer);
@@ -91,9 +94,9 @@ export default {
     :class="{
       priorizada: esPrioritaria,
       eliminada: isDeleted,
-      startedTimer: started,
-      'bg-green': started,
-      'elevation-20': started,
+      startedTimer: isActive,
+      'bg-green': isActive,
+      'elevation-20': isActive,
     }"
   >
     <v-row>
