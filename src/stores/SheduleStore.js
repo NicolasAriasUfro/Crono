@@ -43,9 +43,7 @@ export const useScheduleStore = defineStore("schedule", {
   },
   actions: {
     everySecond() {
-      console.log(this.selectedTimer);
       if (!this.paused) {
-        console.log(this.paused);
         if (
           this.schedules[this.selectedSchedule].timers[this.selectedTimer]
             .actualSeconds <= 0
