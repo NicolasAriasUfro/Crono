@@ -160,6 +160,17 @@ export const useScheduleStore = defineStore("schedule", {
 
       this.saveToLocalStorage();
     },
+    changeTimerName(idTimer, newName) {
+      const selectedSchedule = this.schedules[this.selectedSchedule];
+      const timerIndex = selectedSchedule.timers.findIndex(
+        (t) => t.id === idTimer
+      );
+
+      if (timerIndex !== -1) {
+        selectedSchedule.timers[timerIndex].name = newName;
+      }
+      this.saveToLocalStorage();
+    },
     loadFromLocalStorage() {
       const storedSchedules = localStorage.getItem("schedules");
       if (storedSchedules) {
