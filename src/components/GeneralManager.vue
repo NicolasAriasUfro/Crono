@@ -2,20 +2,17 @@
 import { useScheduleStore } from "@/stores/SheduleStore";
 
 export default {
-  emits: ["general-pause", "general-play", "general-reset"],
   methods: {
     useScheduleStore,
     generalPause() {
       useScheduleStore().paused = true;
-      this.$emit("general-pause");
     },
     generalPlay() {
       useScheduleStore().paused = false;
-      this.$emit("general-play");
     },
     generalReset() {
-      useScheduleStore().paused = true;
-      this.$emit("general-reset");
+      this.generalPause();
+      useScheduleStore().resetSchedule();
     },
   },
 };

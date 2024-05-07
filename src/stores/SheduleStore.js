@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
-
 export const useScheduleStore = defineStore("schedule", {
   state: () => ({
+    /**@Type int*/
     selectedSchedule: 0,
+    /**@Type int */
     selectedTimer: 0,
     lastScheduleId: 0,
     schedules: [
@@ -15,6 +16,7 @@ export const useScheduleStore = defineStore("schedule", {
         ],
       },
     ],
+    /** @Type boolean*/
     paused: true,
     /*
     schedules: [
@@ -35,8 +37,37 @@ export const useScheduleStore = defineStore("schedule", {
     lengthSchedules() {
       return this.schedules.length;
     },
+    getSelectedTimer() {
+      return this.schedules[this.selectedSchedule].timers[this.selectedTimer];
+    },
   },
   actions: {
+    everySecond() {
+      if (!this.paused) {
+        if (
+          this.schedules[this.selectedSchedule].timers[this.selectedTimer]
+            .actualSeconds <= 0
+        ) {
+          this.selectNextTimer();
+        } else {
+          this.schedules[this.selectedSchedule].timers[this.selectedTimer]
+            .actualSeconds--;
+        }
+      }
+    },
+    selectNextTimer() {
+      //revisar si ya terminó
+      if (
+        this.selectedTimer >=
+        this.schedules[this.selectedSchedule].timers.length - 1
+      ) {
+        this.paused = true;
+        console.log("terminó");
+        this.selectedTimer = 0;
+      } else {
+        this.selectedTimer++;
+      }
+    },
     addSchedule(name) {
       this.lastScheduleId++;
       const newSchedule = {
@@ -103,9 +134,14 @@ export const useScheduleStore = defineStore("schedule", {
         // Puedes agregar lógica adicional aquí, como manejar el caso en que actualSeconds sea menor que 0.
       }
     },
+    resetSchedule() {
+      this.selectedSchedule = 0;
+      this.selectedTimer = 0;
+
+      this.resetAllTimers();
+    },
     resetTimer(idTimer) {
-      const selectedSchedule =
-        useScheduleStore().schedules[this.selectedSchedule];
+      const selectedSchedule = this.schedules[this.selectedSchedule];
       const timerIndex = selectedSchedule.timers.findIndex(
         (t) => t.id === idTimer
       );
@@ -114,6 +150,26 @@ export const useScheduleStore = defineStore("schedule", {
         selectedSchedule.timers[timerIndex].actualSeconds =
           selectedSchedule.timers[timerIndex].initialSeconds;
       }
+    },
+    resetAllTimers() {
+      //resetear todos los timer, igualar actualseconds a initialSecondos
+      const timers = this.schedules[this.selectedSchedule].timers;
+      for (let i = 0; i < timers.length; i++) {
+        timers[i].actualSeconds = timers[i].initialSeconds;
+      }
+
+      this.saveToLocalStorage();
+    },
+    changeTimerName(idTimer, newName) {
+      const selectedSchedule = this.schedules[this.selectedSchedule];
+      const timerIndex = selectedSchedule.timers.findIndex(
+        (t) => t.id === idTimer
+      );
+
+      if (timerIndex !== -1) {
+        selectedSchedule.timers[timerIndex].name = newName;
+      }
+      this.saveToLocalStorage();
     },
     loadFromLocalStorage() {
       const storedSchedules = localStorage.getItem("schedules");

@@ -11,25 +11,6 @@ export default {
   },
   methods: {
     useScheduleStore,
-    startNextTimer() {
-      if (this.currentTimerIndex >= useScheduleStore().lengthSchedules - 1) {
-        alert("Todos Los temporizadores finalizados");
-        this.resetAllTimers();
-        return;
-      }
-      this.currentTimerIndex++;
-      this.$refs.timers[this.currentTimerIndex].pauseManager();
-    },
-    pauseFocusedTimer() {
-      if (this.currentTimerIndex < useScheduleStore().lengthSchedules) {
-        this.$refs.timers[this.currentTimerIndex].pauseManager();
-      }
-    },
-    continueFocusedTimer() {
-      if (this.currentTimerIndex < useScheduleStore().lengthSchedules) {
-        this.$refs.timers[this.currentTimerIndex].pauseManager();
-      }
-    },
     resetAllTimers() {
       this.currentTimerIndex = 0;
       const timersRefs = this.$refs.timers;
@@ -45,11 +26,7 @@ export default {
 
 <template>
   <div class="crono">
-    <GeneralManager
-      @general-pause="pauseFocusedTimer"
-      @general-play="continueFocusedTimer"
-      @general-reset="resetAllTimers"
-    />
+    <GeneralManager />
     <div
       v-for="timer in useScheduleStore().schedules[
         useScheduleStore().selectedSchedule
@@ -57,11 +34,7 @@ export default {
       :key="timer.id"
       class="ma-2 w-75"
     >
-      <TimerComponent
-        @timer-finished="startNextTimer"
-        :id-timer="timer.id"
-        ref="timers"
-      />
+      <TimerComponent :id-timer="timer.id" ref="timers" />
     </div>
   </div>
 </template>

@@ -14,10 +14,10 @@ export default {
   },
   data() {
     return {
+      timeName: "",
       timerOptions: ["priorizada", "normal", "baja"],
       timerInterval: null,
       esPrioritaria: false,
-      isDeleted: false,
       isActive: false,
     };
   },
@@ -82,6 +82,10 @@ export default {
     deleteTimer() {
       useScheduleStore().removeTimerFromActiveSchedule(this.idTimer);
     },
+    changeTimerName() {
+      this.name = this.timeName;
+      useScheduleStore().changeTimerName(this.idTimer, this.timeName);
+    },
   },
 };
 </script>
@@ -93,7 +97,6 @@ export default {
     class="timer rounded"
     :class="{
       priorizada: esPrioritaria,
-      eliminada: isDeleted,
       startedTimer: isActive,
       'bg-green': isActive,
       'elevation-20': isActive,
@@ -102,29 +105,20 @@ export default {
     <v-row>
       <v-col>
         <h3>{{ name }}</h3>
-        <strong> {{ formattedActualTime }} / {{ formattedInitialTime }}</strong>
-        <div v-if="isEditable">time interval = {{ timerInterval }}</div>
+        <strong>{{ formattedInitialTime }}</strong>
       </v-col>
       <v-col>
         <v-select :items="timerOptions"></v-select>
       </v-col>
       <v-col>
-        <v-btn v-if="isEditable" @click="deleteTimer">eliminar</v-btn>
+        <v-btn @click="deleteTimer">eliminar</v-btn>
+        <v-form @click.prevent>
+          <v-text-field label="Nuevo Nombre" v-model="timeName"></v-text-field>
+          <v-btn @click="changeTimerName">cambiar nombre</v-btn>
+        </v-form>
       </v-col>
     </v-row>
   </v-card>
 </template>
 
-<style scoped>
-* {
-  //border: orangered 1px solid;
-}
-
-.priorizada {
-  background-color: orange;
-}
-
-.eliminada {
-  background-color: red;
-}
-</style>
+<style scoped></style>

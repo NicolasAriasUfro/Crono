@@ -1,6 +1,6 @@
 <script>
 import { useScheduleStore } from "@/stores/SheduleStore";
-import TimerComponent from "@/components/TimerComponent.vue";
+import EditableTimerComponent from "@/components/EditableTimerComponent.vue";
 
 export default {
   name: "ModifyTimerView",
@@ -14,7 +14,7 @@ export default {
       this.ss = "";
     },
   },
-  components: { TimerComponent },
+  components: { EditableTimerComponent },
   data() {
     return {
       nameTimer: "",
@@ -41,23 +41,18 @@ export default {
 
 <template>
   Mi Cronograma
-  <v-form>
-    <v-text-field
-      label="Nombre Cronograma"
-      v-model="nameSchedule"
-    ></v-text-field>
-  </v-form>
-  <v-btn @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
-    agregar Cronograma
-  </v-btn>
 
   <div
     class="ma-5"
     v-for="timer in useScheduleStore().schedules[selectedSchedule].timers"
     :key="timer.id"
   >
-    <TimerComponent class="selected" :id-timer="timer.id" :is-editable="true">
-    </TimerComponent>
+    <EditableTimerComponent
+      class="selected"
+      :id-timer="timer.id"
+      :is-editable="true"
+    >
+    </EditableTimerComponent>
   </div>
   <v-divider class="ma-4"></v-divider>
 
