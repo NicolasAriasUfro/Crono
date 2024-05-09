@@ -1,3 +1,4 @@
+import { useSerialPortStore } from "@/stores/SerialPortStore";
 import { defineStore } from "pinia";
 export const useScheduleStore = defineStore("schedule", {
   state: () => ({
@@ -40,8 +41,16 @@ export const useScheduleStore = defineStore("schedule", {
     getSelectedTimer() {
       return this.schedules[this.selectedSchedule].timers[this.selectedTimer];
     },
+    timeOfSelectedTimer() {
+      return this.schedules[this.selectedSchedule].timers[this.selectedTimer]
+        .actualSeconds;
+    },
   },
   actions: {
+    getTimeOfSelectedTimer() {
+      return this.schedules[this.selectedSchedule].timers[this.selectedTimer]
+        .actualSeconds;
+    },
     everySecond() {
       if (!this.paused) {
         if (
@@ -53,6 +62,9 @@ export const useScheduleStore = defineStore("schedule", {
           this.schedules[this.selectedSchedule].timers[this.selectedTimer]
             .actualSeconds--;
         }
+      }
+      if (useSerialPortStore().isPortOpen) {
+        useSerialPortStore().sendSerialPort();
       }
     },
     selectNextTimer() {

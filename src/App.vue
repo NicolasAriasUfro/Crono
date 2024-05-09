@@ -24,7 +24,16 @@
 }
 </style>
 <script setup>
+import { useIntervalStore } from "@/stores/IntervalStore";
 import { useScheduleStore } from "@/stores/SheduleStore";
+import { onMounted, onUnmounted } from "vue";
 useScheduleStore().loadFromLocalStorage();
-setInterval(useScheduleStore().everySecond, 1000);
+
+onMounted(() => {
+  useIntervalStore().startInterval(useScheduleStore().everySecond, 1000);
+});
+onUnmounted(() => {
+  useIntervalStore().stopInterval();
+  useScheduleStore().saveToLocalStorage();
+});
 </script>
