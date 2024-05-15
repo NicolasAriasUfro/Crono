@@ -3,7 +3,14 @@ import { useScheduleStore } from "@/stores/SheduleStore";
 
 export default {
   name: "ModifyScheduleView",
-  methods: { useScheduleStore },
+  methods: {
+    useScheduleStore,
+    deleteSchedule() {
+      const idSelectedSchedule = this.selectedSchedule;
+      useScheduleStore().removeSchedule(idSelectedSchedule);
+      this.nameSchedule = "";
+    },
+  },
   data() {
     return {
       nameSchedule: "",
@@ -29,7 +36,8 @@ export default {
         return useScheduleStore().selectedSchedule;
       },
       set(value) {
-        useScheduleStore().selectedSchedule = value;
+        console.log(value);
+        useScheduleStore().selectedSchedule = value.id;
       },
     },
   },
@@ -39,7 +47,7 @@ export default {
 <template>
   <v-card>
     <v-toolbar color="primary">
-      <v-tabs v-model="tab" align-tabs="title">
+      <v-tabs v-model="selectedSchedule" align-tabs="title">
         <v-tab
           v-for="item in items"
           :key="item.id"
@@ -49,13 +57,12 @@ export default {
       </v-tabs>
     </v-toolbar>
 
-    <v-tabs-window v-model="tab">
+    <v-tabs-window v-model="selectedSchedule">
       <v-tabs-window-item v-for="item in items" :key="item" :value="item">
         <v-card flat>
-          tab:{{ tab }}.
+          tab:{{}}.
           <br />
-          selected Schedule:{{ selectedSchedule }}.
-          <v-card-text v-text="timersOfSelectedSchedule"></v-card-text>
+          selected Schedule:{{ selectedSchedule }}. hola
         </v-card>
       </v-tabs-window-item>
     </v-tabs-window>
@@ -67,9 +74,15 @@ export default {
       v-model="nameSchedule"
     ></v-text-field>
   </v-form>
-  <v-btn @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
-    agregar Cronograma
-  </v-btn>
+  <v-container>
+    <v-btn @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
+      Agregar Cronograma
+    </v-btn>
+    <v-btn @click.prevent="deleteSchedule(this.nameSchedule)">
+      Eliminar Cronograma
+    </v-btn>
+  </v-container>
+  <v-divider class="ma-4"></v-divider>
 </template>
 
 <style scoped></style>
