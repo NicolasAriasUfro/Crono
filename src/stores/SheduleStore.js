@@ -84,6 +84,7 @@ export const useScheduleStore = defineStore("schedule", {
       this.lastScheduleId++;
       const newSchedule = {
         id: this.lastScheduleId,
+        lastTimerId: 0,
         name,
         timers: [],
       };
