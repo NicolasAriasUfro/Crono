@@ -117,7 +117,7 @@ export default {
 
 <style scoped>
 * {
-  //border: orangered 1px solid;
+  /* border: orangered 1px solid; */
 }
 
 .priorizada {
