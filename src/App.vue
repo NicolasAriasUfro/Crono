@@ -6,6 +6,7 @@
       class="bg-blue-grey"
       center-active
     >
+      <v-tab to="auth">login</v-tab>
       <v-tab to="cronograma">Cronograma</v-tab>
       <v-tab to="mis-temporizadores">Mis Temporizadores</v-tab>
       <v-tab to="mis-cronogramas">Mis Cronogramas</v-tab>

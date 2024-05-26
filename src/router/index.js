@@ -3,8 +3,14 @@ import CronogramaView from "@/views/CronogramaView.vue";
 import ModifyScheduleView from "@/views/ModifyScheduleView.vue";
 import ConfigView from "@/views/ConfigView.vue";
 import ModifyTimerView from "@/views/ModifyTimerView.vue";
+import AuthView from "@/views/AuthView.vue";
 
 const routes = [
+  {
+    path: "/auth",
+    name: "auth",
+    component: AuthView,
+  },
   {
     path: "",
     name: "home",
