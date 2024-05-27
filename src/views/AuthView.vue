@@ -1,11 +1,13 @@
 <script>
 import AuthService from '../services/AuthService.js'
 import GoogleLogin from '../components/GoogleLogin.vue'
-import { useSessionStore } from '@/stores/session';
+import { useSessionStore } from '@/stores/SessionStore.js';
+import router from '@/router';
 
 export default {
     components: { GoogleLogin },
     data: () => ({
+        message: '',
         store: useSessionStore(),
         tab: 0,
         tabs: [
@@ -37,13 +39,14 @@ export default {
     }),
     methods: {
         authUser() {
-            var valid = this.authService.checkUserValido(this.email, this.password);
-            console.log(valid);
-            if (valid) {
-                this.store.token = ''; //TODO: TOKEN HERE
-                this.$router.replace({ name: "home"})
+            var currentUser = this.authService.checkUserValido(this.email, this.password);
+            if (currentUser != null) {
+                this.store.token = 'some token'; //TODO: TOKEN HERE
+                this.store.userName = currentUser.userName;
+                router.push({ name: "home" })
             } else {
                 this.$refs.loginForm.reset()
+                this.message = '¡Credenciales incorrectas!';
             }
         },
         validate() {
@@ -86,7 +89,7 @@ export default {
                 <v-tabs-window>
                     <v-tabs-window-item value="one">
                         <v-card rounded="0" class="px-8 py-5">
-                            <v-form class="mb-3" ref="loginForm" v-model="valid" lazy-validation>
+                            <v-form class="mb-3" ref="loginForm" v-model="valid" validate-on="input">
                                 <v-row>
                                     <v-col cols="12">
                                         <v-text-field 
@@ -108,8 +111,13 @@ export default {
                                             required
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col class="d-flex" align-self="center">
-                                        <v-btn class="mt-2" align-center color="pink-lighten-2" type="submit" :disabled="!valid" :class="valid? 'cursor-not-allowed' : 'cursor-auto'" @click="authUser">Ingresar</v-btn>
+                                    <v-col class="d-flex align-center justify-space-between" align-self="center">
+                                        <div class="flex-grow-1">
+                                            <v-btn align-center color="pink-lighten-2" type="submit" :disabled="!valid" @click="authUser">Ingresar</v-btn>
+                                        </div>
+                                        <div class="flex-grow-1 text-center align-center align-end">
+                                            <p class="d-flex pl-4 text-center align-end">{{ message }}</p>
+                                        </div>
                                     </v-col>
                                 </v-row>
                             </v-form>

@@ -4,7 +4,7 @@ import ModifyScheduleView from "@/views/ModifyScheduleView.vue";
 import ConfigView from "@/views/ConfigView.vue";
 import ModifyTimerView from "@/views/ModifyTimerView.vue";
 import AuthView from "@/views/AuthView.vue";
-import { useSessionStore } from '@/stores/session';
+import { useSessionStore } from '@/stores/SessionStore';
 
 const routes = [
   {
