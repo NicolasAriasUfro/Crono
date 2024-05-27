@@ -1,7 +1,10 @@
 <script>
     import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth'
+    import { useSessionStore } from '@/stores/session';
+    import router from '@/router';
     export default {
         data: () => ({
+            store: useSessionStore(),
             googleProvider: new GoogleAuthProvider(),
             auth: getAuth(),
         }),
@@ -10,6 +13,12 @@
                 signInWithPopup(this.auth, this.googleProvider)
                     .then( (result) => {
                         console.log("success!");
+                        const credential = GoogleAuthProvider.credentialFromResult(result);
+                        this.store.token = credential?.accessToken; 
+                        setTimeout(() => {
+                            router.push({ name: 'home' }), 500
+                        })
+                        
                     })
                     .catch( (why) => {
                         console.log("failed");

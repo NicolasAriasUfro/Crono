@@ -1,10 +1,12 @@
 <script>
 import AuthService from '../services/AuthService.js'
 import GoogleLogin from '../components/GoogleLogin.vue'
+import { useSessionStore } from '@/stores/session';
 
 export default {
     components: { GoogleLogin },
     data: () => ({
+        store: useSessionStore(),
         tab: 0,
         tabs: [
         {name:"Login", icon:"mdi-account"},
@@ -38,6 +40,7 @@ export default {
             var valid = this.authService.checkUserValido(this.email, this.password);
             console.log(valid);
             if (valid) {
+                this.store.token = ''; //TODO: TOKEN HERE
                 this.$router.replace({ name: "home"})
             } else {
                 this.$refs.loginForm.reset()
