@@ -1,7 +1,9 @@
 <script>
 import AuthService from '../services/AuthService.js'
+import GoogleLogin from '../components/GoogleLogin.vue'
 
 export default {
+    components: { GoogleLogin },
     data: () => ({
         tab: 0,
         tabs: [
@@ -65,9 +67,7 @@ export default {
         max-width="600px"
         min-width="360px"
         transition="dialog-transition"
-    >   
-        
-        <v-tabs class="rounded" bg-color="#7464bc" direction="vertical">
+    >   <v-tabs class="rounded" bg-color="#7464bc" direction="vertical">
                 <div class="d-flex justify-space-between">
                     <div class="flex-grow-1">
                     <v-tab class="d-block" value="one" width="300px">
@@ -82,8 +82,8 @@ export default {
                 </div>
                 <v-tabs-window>
                     <v-tabs-window-item value="one">
-                        <v-card class="px-8 py-5">
-                            <v-form ref="loginForm" v-model="valid" lazy-validation>
+                        <v-card rounded="0" class="px-8 py-5">
+                            <v-form class="mb-3" ref="loginForm" v-model="valid" lazy-validation>
                                 <v-row>
                                     <v-col cols="12">
                                         <v-text-field 
@@ -110,10 +110,16 @@ export default {
                                     </v-col>
                                 </v-row>
                             </v-form>
+                            <hr>
+                            <div class="my-5 text-center ">
+                                <p>También puedes ingresar con:</p>
+                                <GoogleLogin />
+                            </div>
                         </v-card>
                     </v-tabs-window-item>
                 <v-tabs-window-item value="dos" class="text-center">SOON&#8482;</v-tabs-window-item>
                 </v-tabs-window>
         </v-tabs>
+        
     </v-dialog>
 </template>

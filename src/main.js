@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import { initializeApp } from "firebase/app";
 
 // Vuetify
 import "vuetify/styles";
@@ -30,8 +31,26 @@ import {
   faStop,
 } from "@fortawesome/free-solid-svg-icons";
 
+import {
+  faGoogle,
+} from "@fortawesome/free-brands-svg-icons";
+
 import { createPinia } from "pinia";
 const pinia = createPinia();
+
+/* Firebase */
+const firebaseConfig = {
+  apiKey: process.env.VUE_APP_FIREBASE_KEY,
+  authDomain: "cronocoso.firebaseapp.com",
+  projectId: "cronocoso",
+  storageBucket: "cronocoso.appspot.com",
+  messagingSenderId: "1019080736119",
+  appId: "1:1019080736119:web:028a52f5d55c967fc5b572",
+  measurementId: "G-JF5F63FBS4"
+};
+initializeApp(firebaseConfig);
+
+
 /* add icons to the library */
 library.add(faLock);
 library.add(faTrash);
@@ -40,6 +59,7 @@ library.add(faMoon);
 library.add(faPlay);
 library.add(faPause);
 library.add(faStop);
+library.add(faGoogle);
 createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
   .use(router)
