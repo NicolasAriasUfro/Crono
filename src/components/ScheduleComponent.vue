@@ -4,6 +4,6 @@ export default {
 };
 </script>
 
-<template></template>
+<template>calendario</template>
 
 <style scoped></style>
