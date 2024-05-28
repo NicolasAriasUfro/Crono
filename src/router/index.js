@@ -5,6 +5,7 @@ import ConfigView from "@/views/ConfigView.vue";
 import ModifyTimerView from "@/views/ModifyTimerView.vue";
 import AuthView from "@/views/AuthView.vue";
 import { useSessionStore } from '@/stores/SessionStore';
+import HomeView from "@/views/HomeView.vue";
 
 const routes = [
   {
@@ -17,56 +18,58 @@ const routes = [
   },
   {
     path: "",
-    name: "home",
-    component: CronogramaView,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: "/cronograma",
-    name: "cronograma",
-    component: CronogramaView,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: "/mis-temporizadores",
-    name: "mis-temporizadores",
-    component: ModifyTimerView,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: "/mis-cronogramas",
-    name: "mis-cronogramas",
-    component: ModifyScheduleView,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: "/configuracion",
-    name: "config",
-    component: ConfigView,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: "/about",
-    name: "about",
+    component: HomeView,
     meta: {
       requireAuth: true
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    children: [
+      {
+        path: "/cronograma",
+        name: "cronograma",
+        component: CronogramaView,
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: "/mis-temporizadores",
+        name: "mis-temporizadores",
+        component: ModifyTimerView,
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: "/mis-cronogramas",
+        name: "mis-cronogramas",
+        component: ModifyScheduleView,
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: "/configuracion",
+        name: "config",
+        component: ConfigView,
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: "/about",
+        name: "about",
+        meta: {
+          requireAuth: true
+        },
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+      },
+    ]
   },
+  
 ];
 
 const router = createRouter({

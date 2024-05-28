@@ -19,7 +19,7 @@
                         this.store.token = credential?.accessToken; 
                         this.store.userName = user.displayName;
                         setTimeout(() => {
-                            router.push({ name: 'home' }), 500
+                            router.push({ name: 'cronograma' }), 500
                         })
                         
                     })

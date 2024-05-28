@@ -43,7 +43,7 @@ export default {
             if (currentUser != null) {
                 this.store.token = 'some token'; //TODO: TOKEN HERE
                 this.store.userName = currentUser.userName;
-                router.push({ name: "home" })
+                router.push({ name: "cronograma" })
             } else {
                 this.$refs.loginForm.reset()
                 this.message = '¡Credenciales incorrectas!';
