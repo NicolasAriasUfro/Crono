@@ -67,70 +67,54 @@ export default {
 </script>
 
 <template>
-    <v-dialog
-        v-model="dialog"
-        persistent
-        max-width="600px"
-        min-width="360px"
-        transition="dialog-transition"
-    >   <v-tabs class="rounded" bg-color="#7464bc" direction="vertical">
-                <div class="d-flex justify-space-between">
-                    <div class="flex-grow-1">
-                    <v-tab class="d-block" value="one" width="300px">
+    <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px" transition="dialog-transition"> <v-tabs
+            class="rounded" bg-color="#7464bc" direction="vertical">
+            <div class="d-flex justify-space-between">
+                <div class="flex-grow-1">
+                    <v-tab class="d-block mx-0" value="one" width="300px">
                         Login
                     </v-tab>
                 </div>
                 <div class="flex-grow-1 justify-center">
-                    <v-tab class="d-block" value="dos" width="300px" >
+                    <v-tab class="d-block mx-0" value="dos" width="300px">
                         Registro
                     </v-tab>
                 </div>
-                </div>
-                <v-tabs-window>
-                    <v-tabs-window-item value="one">
-                        <v-card rounded="0" class="px-8 py-5">
-                            <v-form class="mb-3" ref="loginForm" v-model="valid" validate-on="input">
-                                <v-row>
-                                    <v-col cols="12">
-                                        <v-text-field 
-                                            bg-color="teal-lighten-5"
-                                            color="red-darken-4"
-                                            v-model="email"
-                                            :rules="emailRules"
-                                            label="Correo"
-                                            required
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-text-field
-                                            bg-color="teal-lighten-5"
-                                            v-model="password"
-                                            :rules="passwordRules"
-                                            :type="'password'"
-                                            label="Contraseña"
-                                            required
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col class="d-flex align-center justify-space-between" align-self="center">
-                                        <div class="flex-grow-1">
-                                            <v-btn align-center color="pink-lighten-2" type="submit" :disabled="!valid" @click="authUser">Ingresar</v-btn>
-                                        </div>
-                                        <div class="flex-grow-1 text-center align-center align-end">
-                                            <p class="d-flex pl-4 text-center align-end">{{ message }}</p>
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                            </v-form>
-                            <hr>
-                            <div class="my-5 text-center ">
-                                <p>También puedes ingresar con:</p>
-                                <GoogleLogin />
-                            </div>
-                        </v-card>
-                    </v-tabs-window-item>
+            </div>
+            <v-tabs-window>
+                <v-tabs-window-item value="one">
+                    <v-card rounded="0" class="px-8 py-5">
+                        <v-form class="mb-3" ref="loginForm" v-model="valid" validate-on="input">
+                            <v-row>
+                                <v-col cols="12">
+                                    <v-text-field bg-color="teal-lighten-5" color="red-darken-4" v-model="email"
+                                        :rules="emailRules" label="Correo" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field bg-color="teal-lighten-5" v-model="password" :rules="passwordRules"
+                                        :type="'password'" label="Contraseña" required></v-text-field>
+                                </v-col>
+                                <v-col class="d-flex align-center justify-space-between" align-self="center">
+                                    <div class="flex-grow-1">
+                                        <v-btn align-center color="pink-lighten-2" type="submit" :disabled="!valid"
+                                            @click="authUser">Ingresar</v-btn>
+                                    </div>
+                                    <div class="flex-grow-1 text-center align-center align-end">
+                                        <p class="d-flex pl-4 text-center align-end">{{ message }}</p>
+                                    </div>
+                                </v-col>
+                            </v-row>
+                        </v-form>
+                        <hr>
+                        <div class="my-5 text-center ">
+                            <p>También puedes ingresar con:</p>
+                            <GoogleLogin />
+                        </div>
+                    </v-card>
+                </v-tabs-window-item>
                 <v-tabs-window-item value="dos" class="text-center">SOON&#8482;</v-tabs-window-item>
-                </v-tabs-window>
+            </v-tabs-window>
         </v-tabs>
-        
+
     </v-dialog>
 </template>
