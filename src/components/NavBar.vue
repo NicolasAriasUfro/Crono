@@ -6,11 +6,8 @@ const sessionStore = useSessionStore();
 const userName = sessionStore.userName;
 
 const logOut = () => {
-  sessionStore.$reset();
-  setTimeout(() => {
-    login.value = false, 500
-  })
-  router.push({ name: "auth" });
+    sessionStore.$reset();
+    router.push({ name: "auth" });
 };
 
 </script>
@@ -20,14 +17,8 @@ const logOut = () => {
         <template v-slot:prepend>
             <div class="text-h5">CronoCoso</div>
         </template>
-        <v-divider
-            class="ms-3"
-            inset
-            vertical
-        ></v-divider>
+        <v-divider class="ms-3" inset vertical></v-divider>
         <v-toolbar-title class="text-left"> {{ userName }} </v-toolbar-title>
-
-        <v-spacer></v-spacer>
 
         <v-spacer></v-spacer>
 
