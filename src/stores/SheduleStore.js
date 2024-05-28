@@ -189,9 +189,29 @@ export const useScheduleStore = defineStore("schedule", {
       if (storedSchedules) {
         this.schedules = JSON.parse(storedSchedules);
       }
+      const selectedSchedule = localStorage.getItem("selectedSchedule");
+      if (selectedSchedule) {
+        this.selectedSchedule = parseInt(selectedSchedule);
+      }
+      const selectedTimer = localStorage.getItem("selectedTimer");
+      if (selectedTimer) {
+        this.selectedTimer = parseInt(selectedTimer);
+      }
+      const paused = localStorage.getItem("paused");
+      if (paused) {
+        this.paused = paused === "true";
+      }
+      const lastScheduleId = localStorage.getItem("lastScheduleId");
+      if (lastScheduleId) {
+        this.lastScheduleId = parseInt(lastScheduleId);
+      }
     },
     saveToLocalStorage() {
       localStorage.setItem("schedules", JSON.stringify(this.schedules));
+      localStorage.setItem("selectedSchedule", this.selectedSchedule);
+      localStorage.setItem("selectedTimer", this.selectedTimer);
+      localStorage.setItem("paused", this.paused);
+      localStorage.setItem("lastScheduleId", this.lastScheduleId);
     },
   },
 });
