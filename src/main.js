@@ -35,8 +35,11 @@ import {
   faGoogle,
 } from "@fortawesome/free-brands-svg-icons";
 
+/* pinia */
 import { createPinia } from "pinia";
+import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedState);
 
 /* Firebase */
 const firebaseConfig = {
@@ -50,7 +53,6 @@ const firebaseConfig = {
 };
 initializeApp(firebaseConfig);
 
-
 /* add icons to the library */
 library.add(faLock);
 library.add(faTrash);
@@ -60,6 +62,8 @@ library.add(faPlay);
 library.add(faPause);
 library.add(faStop);
 library.add(faGoogle);
+
+
 createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
   .use(router)
