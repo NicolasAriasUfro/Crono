@@ -9,17 +9,26 @@ import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
-import { moraCremaTheme, frutosRojosTheme } from "./themes/themes";
+import {
+    moraCremaTheme,
+    frutosRojosTheme,
+    chirimoyaAlegreTheme,
+    coffeeTheme,
+    mentaTheme,
+} from "./themes/themes";
 const vuetify = createVuetify({
-  components,
-  directives,
-  theme: {
-    defaultTheme: 'moraCremaTheme',
-    themes: {
-      moraCremaTheme,
-      frutosRojosTheme
-    }
-  }
+    components,
+    directives,
+    theme: {
+        defaultTheme: "moraCremaTheme",
+        themes: {
+            moraCremaTheme,
+            frutosRojosTheme,
+            chirimoyaAlegreTheme,
+            coffeeTheme,
+            mentaTheme,
+        },
+    },
 });
 
 /* import the fontawesome core */

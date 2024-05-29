@@ -5,16 +5,10 @@ import ThemesSelector from "@/components/ThemesSelector.vue";
 
 const sessionStore = useSessionStore();
 const userName = sessionStore.userName;
-const showThemes = false;
-
 
 const logOut = () => {
     sessionStore.$reset();
     router.push({ name: "auth" });
-};
-
-const changeTheme = () => {
-
 };
 
 </script>
