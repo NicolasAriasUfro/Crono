@@ -92,6 +92,7 @@ export default {
 
 <template>
   <v-card
+    color="secondary_light_2"
     elevated
     ma-2
     class="timer rounded"
@@ -111,10 +112,10 @@ export default {
         <v-select :items="timerOptions"></v-select>
       </v-col>
       <v-col>
-        <v-btn @click="deleteTimer">eliminar</v-btn>
+        <v-btn color="success_light_1" @click="deleteTimer">eliminar</v-btn>
         <v-form @click.prevent>
           <v-text-field label="Nuevo Nombre" v-model="timeName"></v-text-field>
-          <v-btn @click="changeTimerName">cambiar nombre</v-btn>
+          <v-btn color="success_light_1" @click="changeTimerName">cambiar nombre</v-btn>
         </v-form>
       </v-col>
     </v-row>

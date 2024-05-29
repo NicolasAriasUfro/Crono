@@ -17,8 +17,8 @@ const routes = [
     }
   },
   {
-    path: "",
     component: HomeView,
+    redirect: '/cronograma',
     meta: {
       requireAuth: true
     },
@@ -81,12 +81,11 @@ router.beforeEach((to, from, next) => {
   const auth = useSessionStore().token != null;
   const needAuth = to.meta.requireAuth;
   if (needAuth && !auth) {
-    console.log("no autorizado")
     next('auth');
   } else {
-    console.log("autorizado")
     next();
-  }
+  };
+  
 })
 
 export default router;

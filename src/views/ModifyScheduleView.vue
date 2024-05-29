@@ -71,10 +71,10 @@ export default {
     ></v-text-field>
   </v-form>
   <v-container>
-    <v-btn @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
+    <v-btn color="success" @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
       Agregar Cronograma
     </v-btn>
-    <v-btn @click.prevent="deleteSchedule(this.nameSchedule)">
+    <v-btn color="error" @click.prevent="deleteSchedule(this.nameSchedule)">
       Eliminar Cronograma
     </v-btn>
   </v-container>

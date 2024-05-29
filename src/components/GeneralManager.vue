@@ -1,7 +1,11 @@
 <script>
 import { useScheduleStore } from "@/stores/SheduleStore";
+import { useTheme } from "vuetify/lib/framework.mjs";
 
 export default {
+  data: () => ({
+    theme: useTheme(),
+  }),
   methods: {
     useScheduleStore,
     generalPause() {
@@ -14,6 +18,9 @@ export default {
       this.generalPause();
       useScheduleStore().resetSchedule();
     },
+    test() {
+      this.theme.global.current.colors.primary;
+    }
   },
 };
 </script>
@@ -32,12 +39,12 @@ export default {
   </div>
 </template>
 
-<style>
+<style scoped>
 .general-bar {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--primary);
+  background-color: v-bind("theme.current.colors.background");
   padding: 10px;
   border-radius: 10px;
   width: 100%;

@@ -34,7 +34,7 @@ export default {
                 if ( value ) return true
                 return 'Por favor ingresar Contraseña.'
             },
-            v => (v.length >= 6) || "Min 8 characters"
+            v => (v.length >= 6) || "Min 6 caracteres!"
         ]
     }),
     methods: {
@@ -67,8 +67,10 @@ export default {
 </script>
 
 <template>
+    <v-sheet color="primary" height="100%">
+    </v-sheet>
     <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px" transition="dialog-transition"> <v-tabs
-            class="rounded" bg-color="#7464bc" direction="vertical">
+            class="rounded" bg-color="primary" direction="vertical" elevation-10>
             <div class="d-flex justify-space-between">
                 <div class="flex-grow-1">
                     <v-tab class="d-block mx-0" value="one" width="300px">
@@ -83,7 +85,7 @@ export default {
             </div>
             <v-tabs-window>
                 <v-tabs-window-item value="one">
-                    <v-card rounded="0" class="px-8 py-5">
+                    <v-card rounded="0" class="px-8 py-5" color="background">
                         <v-form class="mb-3" ref="loginForm" v-model="valid" validate-on="input">
                             <v-row>
                                 <v-col cols="12">

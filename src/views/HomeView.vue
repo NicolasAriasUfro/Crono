@@ -16,7 +16,7 @@ const logIn = () => {
 <template>
   <navBar />
   <div class="tabs-container">
-    <v-tabs bg-color="primary-light-1" color="blue-grey-lighten-5" align-tabs="center" class="bg-blue-grey tabs"
+    <v-tabs bg-color="primary_light_1" color="blue-grey-lighten-5" align-tabs="center" class="bg-blue-grey tabs"
       show-arrows center-active>
       <v-tab to="cronograma">Cronograma</v-tab>
       <v-tab to="mis-temporizadores">Mis Temporizadores</v-tab>
@@ -34,7 +34,6 @@ const logIn = () => {
 
 <style>
 #router-container {
-  background-color: var(--primary);
   min-height: 80%;
 }
 
