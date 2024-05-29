@@ -17,8 +17,8 @@ const routes = [
     }
   },
   {
-    path: "",
     component: HomeView,
+    redirect: '/cronograma',
     meta: {
       requireAuth: true
     },
@@ -86,7 +86,8 @@ router.beforeEach((to, from, next) => {
   } else {
     console.log("autorizado")
     next();
-  }
+  };
+  
 })
 
 export default router;

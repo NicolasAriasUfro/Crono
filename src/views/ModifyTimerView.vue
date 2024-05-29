@@ -57,11 +57,12 @@ export default {
   <v-divider class="ma-4"></v-divider>
 
   <v-form @submit.prevent="">
-    <v-text-field v-model="nameTimer" label="Nombre" type="text">
+    <v-text-field bg-color="primary_light_3" v-model="nameTimer" label="Nombre" type="text">
     </v-text-field>
     <v-row color="red">
       <v-col>
         <v-text-field
+          bg-color="primary_light_3"
           type="number"
           v-model="hh"
           :rules="rules"
@@ -70,6 +71,7 @@ export default {
       </v-col>
       <v-col>
         <v-text-field
+          bg-color="primary_light_3"
           class="w-30"
           min="0"
           max="59"
@@ -81,6 +83,7 @@ export default {
       </v-col>
       <v-col>
         <v-text-field
+          bg-color="primary_light_3"
           type="number"
           v-model="ss"
           :rules="rules"
@@ -88,7 +91,7 @@ export default {
         ></v-text-field>
       </v-col>
     </v-row>
-    <v-btn type="submit" @click="addNewTimer">Agregar</v-btn>
+    <v-btn color="success" type="submit" @click="addNewTimer">Agregar</v-btn>
   </v-form>
 </template>
 

@@ -21,10 +21,9 @@
                         setTimeout(() => {
                             router.push({ name: 'cronograma' }), 500
                         })
-                        
                     })
                     .catch( (why) => {
-                        console.log("failed");
+                        console.log("failed" + why);
                     })
             },
             test: () => {

@@ -30,34 +30,33 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* import specific icons */
 import {
-  faLock,
-  faStar,
-  faTrash,
-  faMoon,
-  faPlay,
-  faPause,
-  faStop,
+    faLock,
+    faStar,
+    faTrash,
+    faMoon,
+    faPlay,
+    faPause,
+    faStop,
+    faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
-import {
-  faGoogle,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 /* pinia */
 import { createPinia } from "pinia";
-import piniaPluginPersistedState from "pinia-plugin-persistedstate"
+import piniaPluginPersistedState from "pinia-plugin-persistedstate";
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedState);
 
 /* Firebase */
 const firebaseConfig = {
-  apiKey: process.env.VUE_APP_FIREBASE_KEY,
-  authDomain: "cronocoso.firebaseapp.com",
-  projectId: "cronocoso",
-  storageBucket: "cronocoso.appspot.com",
-  messagingSenderId: "1019080736119",
-  appId: "1:1019080736119:web:028a52f5d55c967fc5b572",
-  measurementId: "G-JF5F63FBS4"
+    apiKey: process.env.VUE_APP_FIREBASE_KEY,
+    authDomain: "cronocoso.firebaseapp.com",
+    projectId: "cronocoso",
+    storageBucket: "cronocoso.appspot.com",
+    messagingSenderId: "1019080736119",
+    appId: "1:1019080736119:web:028a52f5d55c967fc5b572",
+    measurementId: "G-JF5F63FBS4",
 };
 initializeApp(firebaseConfig);
 
@@ -70,6 +69,7 @@ library.add(faPlay);
 library.add(faPause);
 library.add(faStop);
 library.add(faGoogle);
+library.add(faCircleCheck);
 
 
 createApp(App)

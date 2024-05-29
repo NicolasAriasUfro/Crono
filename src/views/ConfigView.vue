@@ -21,7 +21,7 @@ export default {
 <template>
   <h1>Configuración</h1>
   <h2>Conexión a un puerto COM</h2>
-  <v-btn @click="selectReciverData" v-if="!useSerialPortStore().isPortOpen"
+  <v-btn color="success" @click="selectReciverData" v-if="!useSerialPortStore().isPortOpen"
     >Elegir Puerto</v-btn
   >
   <v-container v-if="useSerialPortStore().isPortOpen">
