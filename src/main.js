@@ -47,6 +47,8 @@ import {
     faPause,
     faStop,
     faCircleCheck,
+    faVolumeHigh,
+    faVolumeXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
@@ -79,6 +81,8 @@ library.add(faPause);
 library.add(faStop);
 library.add(faGoogle);
 library.add(faCircleCheck);
+library.add(faVolumeHigh);
+library.add(faVolumeXmark);
 
 
 createApp(App)
