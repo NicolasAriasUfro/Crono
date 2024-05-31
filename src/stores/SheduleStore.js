@@ -148,7 +148,6 @@ export const useScheduleStore = defineStore("schedule", {
       }
     },
     resetSchedule() {
-      this.selectedSchedule = 0;
       this.selectedTimer = 0;
 
       this.resetAllTimers();
