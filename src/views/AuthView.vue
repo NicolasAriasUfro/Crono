@@ -43,7 +43,7 @@ export default {
             if (currentUser != null) {
                 this.store.token = 'some token'; //TODO: TOKEN HERE
                 this.store.userName = currentUser.userName;
-                router.push({ name: "cronograma" })
+                router.push({ path: '/cronograma' })
             } else {
                 this.$refs.loginForm.reset()
                 this.message = '¡Credenciales incorrectas!';
@@ -98,7 +98,7 @@ export default {
                                 </v-col>
                                 <v-col class="d-flex align-center justify-space-between" align-self="center">
                                     <div class="flex-grow-1">
-                                        <v-btn align-center color="pink-lighten-2" type="submit" :disabled="!valid"
+                                        <v-btn align-center color="pink-lighten-2" type="button" :disabled="!valid"
                                             @click="authUser">Ingresar</v-btn>
                                     </div>
                                     <div class="flex-grow-1 text-center align-center align-end">

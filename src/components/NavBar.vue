@@ -1,13 +1,17 @@
 <script setup>
 import { useSessionStore } from '@/stores/SessionStore';
+import { useAudioStore } from '@/stores/AudioStore';
 import router from '@/router';
 import ThemesSelector from "@/components/ThemesSelector.vue";
 
 const sessionStore = useSessionStore();
 const userName = sessionStore.userName;
+const audioStore = useAudioStore();
 
 const logOut = () => {
+    audioStore.audio.pause();
     sessionStore.$reset();
+    audioStore.$reset();
     router.push({ name: "auth" });
 };
 
