@@ -90,7 +90,7 @@ export const coffeeTheme = {
         primary: "#D2BA99",
         primary_light_1: "#5c4032",
         primary_light_2: "#e1cda7",
-        primary_light_3: "#f4e9cd",
+        primary_light_3: "#d9a75e",
         secondary: "#6C4E41",
         secondary_light_1: "#6C4E41",
         secondary_light_2: "#e1cda7",
