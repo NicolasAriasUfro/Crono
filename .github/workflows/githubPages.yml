@@ -5,7 +5,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ['feature/pipeline']
+    branches: ['master']
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -39,6 +39,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build
+        env: 
+          VUE_APP_FIREBASE_KEY: ${{ secrets.VUE_APP_FIREBASE_KEY }}
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
