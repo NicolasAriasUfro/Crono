@@ -21,7 +21,7 @@ const logOut = () => {
 </script>
 
 <template>
-  <v-toolbar class="px-5" id="navbar" color="primary">
+  <v-toolbar class="px-5 elevation-4" id="navbar" color="primary">
     <template v-slot:prepend>
       <div class="text-h5">CronoProyect</div>
     </template>
