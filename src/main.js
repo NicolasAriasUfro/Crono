@@ -51,7 +51,7 @@ import {
     faVolumeXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 
 /* pinia */
 import { createPinia } from "pinia";
@@ -83,6 +83,7 @@ library.add(faGoogle);
 library.add(faCircleCheck);
 library.add(faVolumeHigh);
 library.add(faVolumeXmark);
+library.add(faGithub);
 
 
 createApp(App)

@@ -59,6 +59,9 @@ export default {
         },
         resetValidation() {
             this.$refs.form.resetValidation();
+        },
+        back() {
+            router.push({ name: "frontpage" })
         }
     },
     created() {
@@ -111,6 +114,10 @@ export default {
                         <div class="my-5 text-center ">
                             <p>También puedes ingresar con:</p>
                             <GoogleLogin />
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-center mt-5"> 
+                            <v-btn @click="back" color="success">Volver</v-btn>
                         </div>
                     </v-card>
                 </v-tabs-window-item>
