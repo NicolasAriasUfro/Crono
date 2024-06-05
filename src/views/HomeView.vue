@@ -1,6 +1,7 @@
 <script setup>
 import { useSessionStore } from "../stores/SessionStore";
 import navBar from "../components/NavBar.vue";
+import footerComponent from "@/components/Footer.vue";
 import { ref } from "vue";
 import router from '@/router';
 
@@ -14,30 +15,49 @@ const logIn = () => {
 </script>
 
 <template>
-  <navBar />
-  <div class="tabs-container">
-    <v-tabs bg-color="primary_light_1" color="blue-grey-lighten-5" align-tabs="center" class="bg-blue-grey tabs"
-      show-arrows center-active>
-      <v-tab to="cronograma">Cronograma</v-tab>
-      <v-tab to="mis-temporizadores">Mis Temporizadores</v-tab>
-      <v-tab to="mis-cronogramas">Mis Cronogramas</v-tab>
-      <v-tab to="configuracion">Configuración</v-tab>
-    </v-tabs>
-  </div>
-  <div id="router-container">
-    <RouterView />
-  </div>
-  <v-footer>
-    <span class="white--text">Made with ❤️ by @Nico</span>
-  </v-footer>
+  <v-app-bar app>
+    <navBar />
+  </v-app-bar>
+  <v-main grid-list-xs class="content-container">
+    <div class="tabs-container">
+      <v-tabs bg-color="primary_light_1" color="blue-grey-lighten-5" align-tabs="center" class="bg-blue-grey tabs"
+        show-arrows center-active>
+        <v-tab to="cronograma">Cronograma</v-tab>
+        <v-tab to="mis-temporizadores">Mis Temporizadores</v-tab>
+        <v-tab to="mis-cronogramas">Mis Cronogramas</v-tab>
+        <v-tab to="configuracion">Configuración</v-tab>
+      </v-tabs>
+    </div>
+    <v-container fluid class="elevation-1 content-wrapper">
+      <RouterView />
+    </v-container>
+    <footerComponent />
+  </v-main>
 </template>
 
 <style>
-#router-container {
-  min-height: 80%;
+.content-wrapper {
+  height: 90%;
+  overflow-y: auto;
 }
 
-.tabs {
-  min-height: 100%;
+.content-container {
+  height: 90%;
+  flex-direction: column;
+}
+
+.tabs-container {
+  position: sticky;
+  flex-shrink: 0;
+}
+
+.v-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#github-icon {
+  color: aliceblue;
 }
 </style>

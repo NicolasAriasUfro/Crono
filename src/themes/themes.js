@@ -15,6 +15,7 @@ export const moraCremaTheme = {
         success: "#F06090",
         success_light_1: "#f8a9c5",
         warning: "#fb8c00",
+        front_light: "#b9bce8"
     },
     variables: {
         primary: "#7262BC",
@@ -39,6 +40,7 @@ export const frutosRojosTheme = {
         success: "#FB5050",
         success_light_1: "#ffc7c7",
         warning: "#fb8c00",
+        front_light: "#ffc1c1"
     },
 };
 
@@ -50,7 +52,7 @@ export const chirimoyaAlegreTheme = {
         primary: "#F7CFAA",
         primary_light_1: "#E5811D",
         primary_light_2: "#E5811D",
-        primary_light_3: "#f4e9cd",
+        primary_light_3: "#faebcb",
         secondary: "#FF8F1F",
         secondary_light_1: "#6C4E41",
         secondary_light_2: "#e1cda7",
@@ -59,6 +61,7 @@ export const chirimoyaAlegreTheme = {
         success: "#E5811D",
         success_light_1: "#6C4E41",
         warning: "#fb8c00",
+        front_light: "#faebcb"
     },
 };
 
@@ -79,6 +82,7 @@ export const mentaTheme = {
         success: "#1c4b2b",
         success_light_1: "#6C4E41",
         warning: "#fb8c00",
+        front_light: "#c3efce"
     },
 };
 
@@ -90,7 +94,7 @@ export const coffeeTheme = {
         primary: "#D2BA99",
         primary_light_1: "#5c4032",
         primary_light_2: "#e1cda7",
-        primary_light_3: "#f4e9cd",
+        primary_light_3: "#331b15",
         secondary: "#6C4E41",
         secondary_light_1: "#6C4E41",
         secondary_light_2: "#e1cda7",
@@ -99,6 +103,7 @@ export const coffeeTheme = {
         success: "#C39351",
         success_light_1: "#6C4E41",
         warning: "#fb8c00",
+        front_light: "#5a3529"
     },
 };
 

@@ -8,16 +8,20 @@ const sessionStore = useSessionStore();
 const userName = sessionStore.userName;
 const audioStore = useAudioStore();
 
+const logIn = () => {
+  router.push({ name: "auth" });
+}
+
 const logOut = () => {
   audioStore.audio.pause();
   sessionStore.$reset();
   audioStore.$reset();
-  router.push({ name: "auth" });
+  router.push({ name: "frontpage" });
 };
 </script>
 
 <template>
-  <v-toolbar class="px-5" color="primary">
+  <v-toolbar class="px-5 elevation-4" id="navbar" color="primary">
     <template v-slot:prepend>
       <div class="text-h5">CronoProyect</div>
     </template>
@@ -33,7 +37,20 @@ const logOut = () => {
 
       <v-divider vertical></v-divider>
 
-      <v-btn @click="logOut" variant="text">Logout</v-btn>
+      <div class="d-flex">
+        <v-btn v-if="sessionStore.token != null" @click="logOut" class="login-btn" variant="text">Logout</v-btn>
+        <v-btn v-else @click="logIn" class="login-btn" variant="text">LogIn</v-btn>
+      </div>
     </v-toolbar-items>
   </v-toolbar>
 </template>
+
+<style scoped>
+.login-btn {
+  min-width: 100px !important;
+}
+#navbar {
+  position: sticky;
+  top: 0;
+}
+</style>

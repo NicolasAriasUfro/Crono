@@ -8,6 +8,10 @@
 #app {
   text-align: center;
 }
+html, body, #app {
+  height: 100%;
+  margin: 0;
+}
 </style>
 <script setup>
 import { useIntervalStore } from "@/stores/IntervalStore";
