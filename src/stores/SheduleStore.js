@@ -1,3 +1,4 @@
+import { useSerialPortStore } from "@/stores/SerialPortStore";
 import { defineStore } from "pinia";
 export const useScheduleStore = defineStore("schedule", {
   state: () => ({
@@ -40,8 +41,16 @@ export const useScheduleStore = defineStore("schedule", {
     getSelectedTimer() {
       return this.schedules[this.selectedSchedule].timers[this.selectedTimer];
     },
+    timeOfSelectedTimer() {
+      return this.schedules[this.selectedSchedule].timers[this.selectedTimer]
+        .actualSeconds;
+    },
   },
   actions: {
+    getTimeOfSelectedTimer() {
+      return this.schedules[this.selectedSchedule].timers[this.selectedTimer]
+        .actualSeconds;
+    },
     everySecond() {
       if (!this.paused) {
         if (
@@ -53,6 +62,9 @@ export const useScheduleStore = defineStore("schedule", {
           this.schedules[this.selectedSchedule].timers[this.selectedTimer]
             .actualSeconds--;
         }
+      }
+      if (useSerialPortStore().isPortOpen) {
+        useSerialPortStore().sendSerialPort();
       }
     },
     selectNextTimer() {
@@ -72,6 +84,7 @@ export const useScheduleStore = defineStore("schedule", {
       this.lastScheduleId++;
       const newSchedule = {
         id: this.lastScheduleId,
+        lastTimerId: 0,
         name,
         timers: [],
       };
@@ -135,7 +148,6 @@ export const useScheduleStore = defineStore("schedule", {
       }
     },
     resetSchedule() {
-      this.selectedSchedule = 0;
       this.selectedTimer = 0;
 
       this.resetAllTimers();
@@ -176,9 +188,29 @@ export const useScheduleStore = defineStore("schedule", {
       if (storedSchedules) {
         this.schedules = JSON.parse(storedSchedules);
       }
+      const selectedSchedule = localStorage.getItem("selectedSchedule");
+      if (selectedSchedule) {
+        this.selectedSchedule = parseInt(selectedSchedule);
+      }
+      const selectedTimer = localStorage.getItem("selectedTimer");
+      if (selectedTimer) {
+        this.selectedTimer = parseInt(selectedTimer);
+      }
+      const paused = localStorage.getItem("paused");
+      if (paused) {
+        this.paused = paused === "true";
+      }
+      const lastScheduleId = localStorage.getItem("lastScheduleId");
+      if (lastScheduleId) {
+        this.lastScheduleId = parseInt(lastScheduleId);
+      }
     },
     saveToLocalStorage() {
       localStorage.setItem("schedules", JSON.stringify(this.schedules));
+      localStorage.setItem("selectedSchedule", this.selectedSchedule);
+      localStorage.setItem("selectedTimer", this.selectedTimer);
+      localStorage.setItem("paused", this.paused);
+      localStorage.setItem("lastScheduleId", this.lastScheduleId);
     },
   },
 });

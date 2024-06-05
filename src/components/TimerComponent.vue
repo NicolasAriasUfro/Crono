@@ -1,5 +1,6 @@
 <script>
 import { useScheduleStore } from "@/stores/SheduleStore";
+import { useTheme } from "vuetify/lib/framework.mjs";
 
 export default {
   props: {
@@ -14,6 +15,7 @@ export default {
   },
   data() {
     return {
+      theme: useTheme(),
       timerOptions: ["priorizada", "normal", "baja"],
       timerInterval: null,
       esPrioritaria: false,
@@ -88,6 +90,7 @@ export default {
 
 <template>
   <v-card
+    color="secondary_light_2"
     elevated
     ma-2
     class="timer rounded"
@@ -117,7 +120,7 @@ export default {
 
 <style scoped>
 * {
-  //border: orangered 1px solid;
+  /* border: orangered 1px solid; */
 }
 
 .priorizada {

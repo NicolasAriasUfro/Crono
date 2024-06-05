@@ -1,20 +1,6 @@
 <template>
   <v-app>
-    <v-tabs
-      color="blue-grey-lighten-5"
-      align-tabs="center"
-      class="bg-blue-grey"
-      center-active
-    >
-      <v-tab to="cronograma">Cronograma</v-tab>
-      <v-tab to="mis-temporizadores">Mis Temporizadores</v-tab>
-      <v-tab to="mis-cronogramas">Mis Cronogramas</v-tab>
-      <v-tab to="configuracion">Configuración</v-tab>
-    </v-tabs>
-    <router-view />
-    <v-footer>
-      <span class="white--text">Made with ❤️ by @Nico</span>
-    </v-footer>
+      <router-view />
   </v-app>
 </template>
 
@@ -22,9 +8,33 @@
 #app {
   text-align: center;
 }
+html, body, #app {
+  height: 100%;
+  margin: 0;
+}
 </style>
 <script setup>
+import { useIntervalStore } from "@/stores/IntervalStore";
 import { useScheduleStore } from "@/stores/SheduleStore";
+import { useSessionStore } from "./stores/SessionStore";
+import { onMounted, onUnmounted } from "vue";
+import { useTheme } from "vuetify/lib/framework.mjs";
+
+const theme = useTheme();
+const sessionStore = useSessionStore();
 useScheduleStore().loadFromLocalStorage();
-setInterval(useScheduleStore().everySecond, 1000);
+
+const setTheme = () => {
+  theme.global.name.value = sessionStore.theme;
+}
+
+
+onMounted(() => {
+  useIntervalStore().startInterval(useScheduleStore().everySecond, 1000);
+  setTheme();
+});
+onUnmounted(() => {
+  useIntervalStore().stopInterval();
+  useScheduleStore().saveToLocalStorage();
+});
 </script>
