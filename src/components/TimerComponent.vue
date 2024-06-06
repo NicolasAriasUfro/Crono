@@ -103,7 +103,7 @@ export default {
     }"
   >
     <v-row>
-      <v-col>
+      <v-col class="showtime">
         <h3>{{ name }}</h3>
         <strong> {{ formattedActualTime }} / {{ formattedInitialTime }}</strong>
         <div v-if="isEditable">time interval = {{ timerInterval }}</div>
@@ -126,8 +126,14 @@ export default {
 .priorizada {
   background-color: orange;
 }
+.timer {
+  margin-bottom: 5px;
+}
 
 .eliminada {
   background-color: red;
+}
+.showtime{
+  min-width: 19ch;
 }
 </style>

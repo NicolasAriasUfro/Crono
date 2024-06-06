@@ -2,11 +2,35 @@
 import TimerComponent from "@/components/TimerComponent.vue";
 import GeneralManager from "@/components/GeneralManager.vue";
 import { useScheduleStore } from "@/stores/SheduleStore";
+import draggable from 'vuedraggable';
+import { ref } from 'vue';
 export default {
-  components: { GeneralManager, TimerComponent },
+  components: { GeneralManager, TimerComponent, draggable},
+  setup(){
+    var scheduleStore = useScheduleStore();
+    const store = useScheduleStore();
+    const timers = ref(store.schedules[store.selectedSchedule].timers);
+
+    const onDragEnd = () => {
+      store.schedules[store.selectedSchedule].timers = timers.value;
+    };
+
+    return {
+      timers,
+      onDragEnd
+    };
+  },
   data() {
     return {
       currentTimerIndex: 0,
+      drag: false,
+      myArray:
+        [
+          {name:"hola",
+          id:1},
+          {name:"bom dia",
+          id:2}
+      ]
     };
   },
   methods: {
@@ -26,16 +50,29 @@ export default {
 
 <template>
   <div class="crono">
-    <GeneralManager />
-    <div
-      v-for="timer in useScheduleStore().schedules[
-        useScheduleStore().selectedSchedule
-      ].timers"
-      :key="timer.id"
-      class="ma-2 w-75"
+    <draggable
+      v-model="myArray"
+      group="people"
+      @start="drag=true"
+      @end="drag=false"
+      item-key="id">
+      <template #item="{element}">
+        <div>{{element.name}}</div>
+      </template>
+    </draggable>
+    ---
+    <draggable
+      v-model="timers"
+      @start="drag=true"
+      @end="onDragEnd"
+
     >
-      <TimerComponent :id-timer="timer.id" ref="timers" />
-    </div>
+      <template #item="element" tag="TimerComponent">
+        <TimerComponent :id-timer="element.element.id"></TimerComponent>
+      </template>
+    </draggable>
+    <GeneralManager />
+
   </div>
 </template>
 

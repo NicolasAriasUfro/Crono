@@ -1,5 +1,6 @@
 import { useSerialPortStore } from "@/stores/SerialPortStore";
 import { defineStore } from "pinia";
+import { ref } from 'vue';
 export const useScheduleStore = defineStore("schedule", {
   state: () => ({
     /**@Type int*/
