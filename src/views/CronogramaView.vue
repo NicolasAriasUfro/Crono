@@ -4,9 +4,10 @@ import GeneralManager from "@/components/GeneralManager.vue";
 import GeneralGroupManager from "@/components/GeneralGroupManager.vue";
 import { useScheduleStore } from "@/stores/SheduleStore";
 import { useGroupStore } from "@/stores/GroupStore";
+import TimerGroupComponent from "@/components/TimerGroupComponent.vue";
 
 export default {
-  components: { GeneralManager, TimerComponent, GeneralGroupManager },
+  components: { GeneralManager, TimerComponent, GeneralGroupManager, TimerGroupComponent },
   data() {
     return {
       groupStore: useGroupStore(),
@@ -82,7 +83,7 @@ export default {
             <div v-if="groupSelected" class="d-flex">
               <div v-for="cronograma in groupSelected.cronograma" :key="cronograma.id" class=" d-flex flex-column align-items-center justify-center">
                 <div v-for="timer in cronograma.timers" :key="timer.id" fluid class="ma-2 justify-center timer-container">
-                  <TimerComponent :id-timer="timer.id" ref="timers" />
+                  <TimerGroupComponent :idGroup="groupSelected.index" :id-timer="timer.id" />
                 </div>
               </div>
             </div>

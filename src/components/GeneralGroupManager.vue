@@ -55,7 +55,6 @@ export default {
 </script>
 
 <template>
-  {{ groupId }}
   <div class="general-bar">
     <button v-if="useGroupStore().paused" @click.prevent="generalPlay">
       <font-awesome-icon class="icon" icon="fa-solid fa-play" />

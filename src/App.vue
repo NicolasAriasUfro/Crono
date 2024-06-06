@@ -33,7 +33,6 @@ const setTheme = () => {
 
 onMounted(() => {
   useIntervalStore().startInterval(intervalService, 1000);
-  //useIntervalStore().startInterval(useGroupStore().everySecond, 1000);
   setTheme();
 });
 onUnmounted(() => {
