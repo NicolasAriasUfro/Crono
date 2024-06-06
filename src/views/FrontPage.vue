@@ -4,10 +4,15 @@ import footerComponent from "@/components/Footer.vue";
 import ThemesSelector from "@/components/ThemesSelector.vue";
 import router from "@/router";
 import { useTheme } from "vuetify/lib/framework.mjs";
+import { useSessionStore } from "@/stores/SessionStore";
 
+const session = useSessionStore();
 const theme = useTheme();
 const login = () => {
     router.push({ name: "auth" })
+}
+const ingresar = () => {
+    router.push({ name: "cronograma"})
 }
 </script>
 
@@ -28,7 +33,8 @@ const login = () => {
                         Ya seas profesor, estudiante, profesional de negocios o orador público, esta aplicación te garantiza que te 
                         mantengas en el camino correcto y saques el máximo provecho de tu tiempo de presentación.</p>
                     <div class="mt-5">
-                        <v-btn @click="login" color="success">Ingresar</v-btn>
+                        <v-btn v-if="session.token == null" @click="login" color="success">Ingresar</v-btn>
+                        <v-btn v-else @click="ingresar" color="success">Ingresar</v-btn>
                     </div>
                 </v-col>
             </v-row>
@@ -67,7 +73,7 @@ const login = () => {
                     <div>
                         <h3>Personaliza tu aplicación</h3>
                         <p class="mb-3">
-                            ¡Modifica el tema de la aplicacion a tu gusto!
+                            ¡Modifica el tema de la aplicación a tu gusto!
                             CronoProyect te permite seleccionar un tema a elección de una colección existente.
                         </p>
                         <ThemesSelector />

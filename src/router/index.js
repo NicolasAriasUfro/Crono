@@ -24,6 +24,13 @@ const routes = [
         meta: {
             requireAuth: false,
         },
+        // workaround para double guarding, si el usuario ya esta autentificado redirects a /cronograma
+        beforeEnter: (to, from) => {
+            const auth = useSessionStore().token != null;
+            if (auth) {
+                return '/cronograma';
+            }
+        },
     },
     {
         path: "/home",
@@ -88,17 +95,17 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from) => {
     const auth = useSessionStore().token != null;
     const needAuth = to.meta.requireAuth;
     console.log("from: " + from.path + ", to: " + to.path);
     console.log("auth: " + auth + ", needAuth: " + needAuth);
     if (needAuth && !auth) {
         console.log("no autorizado");
-        next("auth");
+        return { name: "auth" };
     } else {
         console.log("autorizado");
-        next();
+        return true;
     }
 });
 
