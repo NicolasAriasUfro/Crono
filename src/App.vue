@@ -19,6 +19,8 @@ import { useScheduleStore } from "@/stores/SheduleStore";
 import { useSessionStore } from "./stores/SessionStore";
 import { onMounted, onUnmounted } from "vue";
 import { useTheme } from "vuetify/lib/framework.mjs";
+import { useGroupStore } from "./stores/GroupStore";
+import { intervalService } from "./services/IntervalService";
 
 const theme = useTheme();
 const sessionStore = useSessionStore();
@@ -30,7 +32,8 @@ const setTheme = () => {
 
 
 onMounted(() => {
-  useIntervalStore().startInterval(useScheduleStore().everySecond, 1000);
+  useIntervalStore().startInterval(intervalService, 1000);
+  //useIntervalStore().startInterval(useGroupStore().everySecond, 1000);
   setTheme();
 });
 onUnmounted(() => {

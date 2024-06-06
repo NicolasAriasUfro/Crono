@@ -64,8 +64,6 @@ export default {
             router.push({ name: "frontpage" })
         }
     },
-    created() {
-    }
 }
 </script>
 

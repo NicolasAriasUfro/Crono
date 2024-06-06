@@ -1,16 +1,22 @@
 <script>
-import { useScheduleStore } from "@/stores/SheduleStore";
+import { useGroupStore } from "@/stores/GroupStore.js";
 import { useTheme } from "vuetify/lib/framework.mjs";
 import { useAudioStore } from "@/stores/AudioStore";
 
 export default {
+  props: {
+    groupId: {
+      type: Number,
+      required: true
+    }
+  },
   data: () => ({
     audioStore: useAudioStore(),
     theme: useTheme(),
     audio: useAudioStore().audio,
   }),
   methods: {
-    useScheduleStore,
+    useGroupStore,
     playAudio() {
         this.audio.volume = 0.2;
         this.audio.loop = true;
@@ -29,25 +35,29 @@ export default {
       this.audioStore.muted = false;
     },
     generalPause() {
-      useScheduleStore().paused = true;
+      useGroupStore().paused = true;
       this.pauseAudio();
     },
     generalPlay() {
-      useScheduleStore().paused = false;
+      useGroupStore().paused = false;
       this.playAudio();
     },
     generalReset() {
       this.generalPause();
       this.audioStore.playing = false;
-      useScheduleStore().resetSchedule();
+      useGroupStore().$reset();
     },
   },
+  beforeUpdate() {
+    this.useGroupStore().selectedGroup = this.groupId;
+    }
 };
 </script>
 
 <template>
+  {{ groupId }}
   <div class="general-bar">
-    <button v-if="useScheduleStore().paused" @click.prevent="generalPlay">
+    <button v-if="useGroupStore().paused" @click.prevent="generalPlay">
       <font-awesome-icon class="icon" icon="fa-solid fa-play" />
     </button>
     <button v-else @click.prevent="generalPause">
