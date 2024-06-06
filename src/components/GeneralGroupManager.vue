@@ -50,7 +50,7 @@ export default {
   },
   beforeUpdate() {
     this.useGroupStore().selectedGroup = this.groupId;
-    }
+  }
 };
 </script>
 

@@ -6,6 +6,7 @@ export const useSessionStore = defineStore('session', {
             token: null,
             userName: null,
             theme: "moraCremaTheme",
+            groups: []
         };
     },
     persist: true,

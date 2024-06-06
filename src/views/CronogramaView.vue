@@ -5,6 +5,7 @@ import GeneralGroupManager from "@/components/GeneralGroupManager.vue";
 import { useScheduleStore } from "@/stores/SheduleStore";
 import { useGroupStore } from "@/stores/GroupStore";
 import TimerGroupComponent from "@/components/TimerGroupComponent.vue";
+import { useSessionStore } from "@/stores/SessionStore";
 
 export default {
   components: { GeneralManager, TimerComponent, GeneralGroupManager, TimerGroupComponent },
@@ -13,9 +14,10 @@ export default {
       groupStore: useGroupStore(),
       tab: "",
       currentTimerIndex: 0,
-      groupSelected: useGroupStore().groups[0],
-      items: useGroupStore().groups,
-      test: useGroupStore().groups[1].cronograma[0]
+      selectedId: null,
+      groupSelected: null,
+      items: useSessionStore().groups,
+      noGroups: useSessionStore().groups.length === 0,
     };
   },
   methods: {
@@ -30,6 +32,25 @@ export default {
       });
     },
   },
+  watch: {
+    selectedId(newSelectedId, oldSelectedId) {
+      console.log(newSelectedId);
+      const currentGroup = useGroupStore().groups[newSelectedId.id];
+      this.groupSelected = currentGroup;
+    }
+  },
+  beforeMount() {
+    if (!this.noGroups) {
+      this.selectedId = useGroupStore().groups[useSessionStore().groups[0].id],
+      this.groupSelected = useGroupStore().groups[useSessionStore().groups[0].id]
+    }
+  },
+  beforeUpdate() {
+    if (!this.noGroups) {
+      this.selectedId = useGroupStore().groups[useSessionStore().groups[0].id],
+      this.groupSelected = useGroupStore().groups[useSessionStore().groups[0].id]
+    }
+  }
 };
 </script>
 
@@ -61,14 +82,14 @@ export default {
           </div>
       </v-tabs-window-item>
       <v-tabs-window-item value="grupo">
-          <div class="crono">
+          <div v-if="!noGroups" class="crono">
             <div>
               <GeneralGroupManager :groupId="groupSelected.index" />
               <v-select
-                v-model="groupSelected"
+                v-model="selectedId"
                 :items="items"
                 item-title="name"
-                item-value="cronograma"
+                item-value="id"
                 hint="Grupo seleccionado"
                 label="Selecciona un grupo"
                 density="compact"
@@ -87,6 +108,10 @@ export default {
                 </div>
               </div>
             </div>
+          </div>
+          <div v-else class="crono mt-3">
+            <h3 class="my-3">¡Aun no perteneces a ningún grupo!</h3>
+            <v-btn to="/grupos" color="success">Grupos</v-btn>
           </div>
       </v-tabs-window-item>
     </v-tabs-window>

@@ -25,6 +25,7 @@ const logIn = () => {
         <v-tab to="cronograma">Cronograma</v-tab>
         <v-tab to="mis-temporizadores">Mis Temporizadores</v-tab>
         <v-tab to="mis-cronogramas">Mis Cronogramas</v-tab>
+        <v-tab to="grupos">Grupos</v-tab>
         <v-tab to="configuracion">Configuración</v-tab>
       </v-tabs>
     </div>
