@@ -81,20 +81,6 @@ const routes = [
                     requireAuth: true,
                 },
             },
-            {
-                path: "/about",
-                name: "about",
-                meta: {
-                    requireAuth: true,
-                },
-                // route level code-splitting
-                // this generates a separate chunk (about.[hash].js) for this route
-                // which is lazy-loaded when the route is visited.
-                component: () =>
-                    import(
-                        /* webpackChunkName: "about" */ "../views/AboutView.vue"
-                    ),
-            },
         ],
     },
 ];
@@ -107,13 +93,9 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
     const auth = useSessionStore().token != null;
     const needAuth = to.meta.requireAuth;
-    console.log("from: " + from.path + ", to: " + to.path);
-    console.log("auth: " + auth + ", needAuth: " + needAuth);
     if (needAuth && !auth) {
-        console.log("no autorizado");
         return { name: "auth" };
     } else {
-        console.log("autorizado");
         return true;
     }
 });
