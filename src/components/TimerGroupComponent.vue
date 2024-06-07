@@ -2,6 +2,7 @@
 import { useScheduleStore } from "@/stores/SheduleStore";
 import { useGroupStore } from "@/stores/GroupStore";
 import { useTheme } from "vuetify/lib/framework.mjs";
+import { ref, computed, reactive } from 'vue';
 
 export default {
     props: {
@@ -16,18 +17,17 @@ export default {
         isEditable: {
         type: Boolean,
         default: false,
-        },
-        
+        },  
     },
     data() {
         return {
-        theme: useTheme(),
-        timerOptions: ["priorizada", "normal", "baja"],
-        timerInterval: null,
-        esPrioritaria: false,
-        isDeleted: false,
-        isActive: false,
-        selectedSchedule: useGroupStore().groups[this.idGroup].cronograma[0].timers,
+            theme: useTheme(),
+            timerOptions: ["priorizada", "normal", "baja"],
+            timerInterval: null,
+            esPrioritaria: false,
+            isDeleted: false,
+            isActive: false,
+            selectedSchedule: reactive(useGroupStore().groups[this.idGroup].cronograma[0].timers),
         };
     },
     computed: {
@@ -79,9 +79,13 @@ export default {
         },
         selectedTimer() {
             return this.selectedSchedule.find((t) => t.id === this.idTimer).selected;
-        }
+        },
+        progress() {
+            const timer = this.selectedSchedule.find((t) => t.id === this.idTimer);
+            if (!timer || timer.initialSeconds === 0) return 0;
+            return (timer.actualSeconds / timer.initialSeconds) * 100;
+        },
     },
-    mounted() {},
     methods: {
         deleteTimer() {
             useScheduleStore().removeTimerFromActiveSchedule(this.idTimer);
@@ -105,17 +109,22 @@ export default {
         }"
     >
         <v-row>
-        <v-col>
-            <h3>{{ name }}</h3>
-            <strong> {{ formattedActualTime }} / {{ formattedInitialTime }}</strong>
-            <!-- <div v-if="isEditable">time interval = {{ timerInterval }}</div> -->
-        </v-col>
-        <v-col>
-            <v-select :items="timerOptions"></v-select>
-        </v-col>
-        <v-col>
-            <v-btn v-if="isEditable" @click="deleteTimer">eliminar</v-btn>
-        </v-col>
+            <v-col>
+                <h3>{{ name }}</h3>
+                <strong> {{ formattedActualTime }} / {{ formattedInitialTime }}</strong>
+                <!-- <div v-if="isEditable">time interval = {{ timerInterval }}</div> -->
+            </v-col>
+            <v-col>
+                <v-select :items="timerOptions"></v-select>
+            </v-col>
+            <v-col>
+                <v-btn v-if="isEditable" @click="deleteTimer">eliminar</v-btn>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col>
+                <v-progress-linear v-model=progress color="success" height="6" class="smooth-progress"></v-progress-linear>
+            </v-col>
         </v-row>
     </v-card>
     </template>
@@ -124,12 +133,15 @@ export default {
 * {
   /* border: orangered 1px solid; */
 }
-
 .priorizada {
     background-color: orange;
 }
 
 .eliminada {
     background-color: red;
+}
+
+.smooth-progress {
+    transition: width 1s cubic-bezier(0.4, 0.0, 0.2, 1); 
 }
 </style>

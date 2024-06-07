@@ -5,6 +5,7 @@ import { useSessionStore } from '@/stores/SessionStore';
 export default {
     data() {
         return {
+            value: 20,
             groupSelected: '',
             items: useGroupStore().groups,
             alreadySelected: false,

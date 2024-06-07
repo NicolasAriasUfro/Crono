@@ -22,8 +22,8 @@ export const useGroupStore = defineStore("group", {
                             {
                                 id: 2,
                                 name: "Introducción",
-                                initialSeconds: "180",
-                                actualSeconds: "180",
+                                initialSeconds: "010",
+                                actualSeconds: "010",
                                 selected: false,
                             },
                             {
