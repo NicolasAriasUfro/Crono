@@ -148,4 +148,9 @@ export default {
 .timer-container {
   width: 1000px;
 }
+@media (max-width: 600px) {
+    .timer-container {
+        width: 40vh !important;
+    }
+}
 </style>

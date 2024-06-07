@@ -21,12 +21,12 @@ const ingresar = () => {
         <navBar />
     </v-app-bar>
     <v-main grid-list-sm fluid class="main-container">
-        <v-container grid-list-xs fluid class="px-16 first-container align-content-center">
+        <v-container grid-list-xs fluid class="first-container align-content-center">
             <v-row>
-                <v-col cols="12" md="6" class="d-flex flex-column align-end">
+                <v-col cols="12" md="6" class="d-none d-md-flex flex-column align-end">
                     <img src="@/assets/reloj.png" alt="clock-image" class="main-clock">
                 </v-col>
-                <v-col cols="12" md="6" class="d-flex flex-column align-start justify-center px-16 text-left">
+                <v-col cols="12" md="6" class="d-flex flex-column align-start justify-center text-left">
                     <h1 class="gradient">CronoProyect</h1>
                     <p>CronoProyect es una aplicación poderosa e intuitiva diseñada para ayudarte a planificar
                         y cronometrar cada parte de tus presentaciones con facilidad!.
@@ -41,7 +41,7 @@ const ingresar = () => {
         </v-container>
         <v-container grid-list-sm class="second-container">
             <v-row class="mb-10">
-                <v-col cols="12" md="6" class="d-flex align-center text-left">
+                <v-col order="1" cols="12" md="6" class="d-flex align-center text-left">
                     <div>
                         <h3>Gestiona tus horarios</h3>
                         <p>
@@ -50,15 +50,15 @@ const ingresar = () => {
                         </p>
                     </div>
                 </v-col>
-                <v-col cols="12" md="6">
+                <v-col order="2" cols="12" md="6">
                     <v-img rounded contain max-width="550" class="img-second-ctn" :src="require('@/assets/demo/demo_cronograma.png')"></v-img>
                 </v-col>
             </v-row>
             <v-row class="mb-10">
-                <v-col cols="12" md="6" >
+                <v-col order="2" cols="12" md="6" >
                     <v-img rounded contain max-width="550" class="img-second-ctn" :src="require('@/assets/demo/demo_creacion_tmp.png')"></v-img>
                 </v-col>
-                <v-col cols="12" md="6" class="d-flex align-center text-left">
+                <v-col order="1" cols="12" md="6" class="d-flex align-center text-left">
                     <div>
                         <h3>Agrega horarios adicionales</h3>
                         <p>
@@ -69,7 +69,7 @@ const ingresar = () => {
                 </v-col>
             </v-row>
             <v-row class="mb-10">
-                <v-col cols="12" md="6" class="d-flex align-center text-left">
+                <v-col order="1" cols="12" md="6" class="d-flex align-center text-left">
                     <div>
                         <h3>Personaliza tu aplicación</h3>
                         <p class="mb-3">
@@ -79,16 +79,16 @@ const ingresar = () => {
                         <ThemesSelector />
                     </div>
                 </v-col>
-                <v-col cols="12" md="6" class="d-flex">
+                <v-col order="2" cols="12" md="6" class="d-flex">
                     <v-img rounded contain max-width="550" class="img-second-ctn mr-3" :src="require('@/assets/demo/demo_theme.png')"></v-img>
                     <v-img rounded contain max-width="550" class="img-second-ctn" :src="require('@/assets/demo/demo_theme_1.png')"></v-img>
                 </v-col>
             </v-row>
             <v-row class="mb-10">
-                <v-col cols="12" md="6" >
+                <v-col order="2" cols="12" md="6" >
                     <v-img rounded contain max-width="550" class="img-second-ctn" :src="require('@/assets/demo/demo_groups.png')"></v-img>
                 </v-col>
-                <v-col cols="12" md="6" class="d-flex align-center text-left">
+                <v-col order="1" cols="12" md="6" class="d-flex align-center text-left">
                     <div>
                         <h3>Únete a grupos existentes</h3>
                         <p>
@@ -115,6 +115,7 @@ const ingresar = () => {
 .first-container {
     background-color: v-bind("theme.current.value.colors.primary_light_3") !important;
     height: 50%;
+    padding: 16px 64px !important;
 }
 .main-clock {
     height: 400px;
@@ -135,5 +136,10 @@ const ingresar = () => {
         v-bind("theme.current.value.colors.success") 55%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+@media (max-width: 600px) {
+    .first-container {
+        padding: 16px !important;
+    }
 }
 </style>
