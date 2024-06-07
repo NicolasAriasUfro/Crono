@@ -33,10 +33,7 @@ export default {
       if(this.nameTimer === ""){
         return true;
       }
-      return this.hh === "" && this.mm === "" && this.ss === "";
-
-
-
+      return !(this.totalSeconds > 0);
     },
     selectedSchedule() {
       return useScheduleStore().selectedSchedule;
