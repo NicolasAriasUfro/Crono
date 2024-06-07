@@ -43,6 +43,7 @@ export default {
             if (currentUser != null) {
                 this.store.token = 'some token'; //TODO: TOKEN HERE
                 this.store.userName = currentUser.userName;
+                this.store.groups = currentUser.groups;
                 router.push({ path: '/cronograma' })
             } else {
                 this.$refs.loginForm.reset()
@@ -64,8 +65,6 @@ export default {
             router.push({ name: "frontpage" })
         }
     },
-    created() {
-    }
 }
 </script>
 

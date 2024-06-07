@@ -18,12 +18,18 @@ const logOut = () => {
   audioStore.$reset();
   router.push({ name: "frontpage" });
 };
+
+const frontPage = () => {
+  router.push({ name: "frontpage" });
+};
 </script>
 
 <template>
   <v-toolbar class="px-5 elevation-4" id="navbar" color="primary">
     <template v-slot:prepend>
-      <div class="text-h5">CronoProyect</div>
+      <div class="text-h5">
+        <button @click="frontPage" text="CronoProyect" color="primary">CronoProyect</button>
+      </div>
     </template>
     <v-divider class="ms-3" color="background" inset vertical></v-divider>
     <v-toolbar-title class="d-flex text-left align-center">

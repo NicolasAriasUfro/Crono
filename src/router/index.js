@@ -7,6 +7,7 @@ import AuthView from "@/views/AuthView.vue";
 import { useSessionStore } from '@/stores/SessionStore';
 import HomeView from "@/views/HomeView.vue";
 import FrontPage from "@/views/FrontPage.vue";
+import GroupsView from "@/views/GroupsView.vue";
 
 const routes = [
     {
@@ -23,6 +24,13 @@ const routes = [
         component: AuthView,
         meta: {
             requireAuth: false,
+        },
+        // workaround para double guarding, si el usuario ya esta autentificado redirects a /cronograma
+        beforeEnter: (to, from) => {
+            const auth = useSessionStore().token != null;
+            if (auth) {
+                return "/cronograma";
+            }
         },
     },
     {
@@ -58,26 +66,20 @@ const routes = [
                 },
             },
             {
+                path: "/grupos",
+                name: "grupos",
+                component: GroupsView,
+                meta: {
+                    requireAuth: true,
+                },
+            },
+            {
                 path: "/configuracion",
                 name: "config",
                 component: ConfigView,
                 meta: {
                     requireAuth: true,
                 },
-            },
-            {
-                path: "/about",
-                name: "about",
-                meta: {
-                    requireAuth: true,
-                },
-                // route level code-splitting
-                // this generates a separate chunk (about.[hash].js) for this route
-                // which is lazy-loaded when the route is visited.
-                component: () =>
-                    import(
-                        /* webpackChunkName: "about" */ "../views/AboutView.vue"
-                    ),
             },
         ],
     },
@@ -88,17 +90,13 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from) => {
     const auth = useSessionStore().token != null;
     const needAuth = to.meta.requireAuth;
-    console.log("from: " + from.path + ", to: " + to.path);
-    console.log("auth: " + auth + ", needAuth: " + needAuth);
     if (needAuth && !auth) {
-        console.log("no autorizado");
-        next("auth");
+        return { name: "auth" };
     } else {
-        console.log("autorizado");
-        next();
+        return true;
     }
 });
 
