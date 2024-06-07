@@ -7,6 +7,7 @@ import AuthView from "@/views/AuthView.vue";
 import { useSessionStore } from '@/stores/SessionStore';
 import HomeView from "@/views/HomeView.vue";
 import FrontPage from "@/views/FrontPage.vue";
+import GroupsView from "@/views/GroupsView.vue";
 
 const routes = [
     {
@@ -28,7 +29,7 @@ const routes = [
         beforeEnter: (to, from) => {
             const auth = useSessionStore().token != null;
             if (auth) {
-                return '/cronograma';
+                return "/cronograma";
             }
         },
     },
@@ -60,6 +61,14 @@ const routes = [
                 path: "/mis-cronogramas",
                 name: "mis-cronogramas",
                 component: ModifyScheduleView,
+                meta: {
+                    requireAuth: true,
+                },
+            },
+            {
+                path: "/grupos",
+                name: "grupos",
+                component: GroupsView,
                 meta: {
                     requireAuth: true,
                 },
