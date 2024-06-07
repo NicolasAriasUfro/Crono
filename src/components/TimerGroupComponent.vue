@@ -31,57 +31,60 @@ export default {
         };
     },
     computed: {
-    formattedActualTime() {
+        formattedActualTime() {
 
-        const isNegativeTime = this.actualSeconds < 0;
-        let seconds = this.actualSeconds;
-        if (isNegativeTime) {
-            seconds = -this.actualSeconds;
-        }
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const remainingSeconds = seconds % 60;
+            const isNegativeTime = this.actualSeconds < 0;
+            let seconds = this.actualSeconds;
+            if (isNegativeTime) {
+                seconds = -this.actualSeconds;
+            }
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
 
-        const formattedHours = hours < 10 ? `0${hours}` : `${hours}`;
-        const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
-        const formattedSeconds =
-            remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
+            const formattedHours = hours < 10 ? `0${hours}` : `${hours}`;
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+            const formattedSeconds =
+                remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
 
-        if (isNegativeTime) {
-            return `-${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-        }
-        return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+            if (isNegativeTime) {
+                return `-${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+            }
+            return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+            },
+        formattedInitialTime() {
+            const seconds = this.initialSeconds;
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
+
+            const formattedHours = hours < 10 ? `0${hours}` : `${hours}`;
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+            const formattedSeconds =
+                remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
+
+            return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
         },
-    formattedInitialTime() {
-        const seconds = this.initialSeconds;
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const remainingSeconds = seconds % 60;
-
-        const formattedHours = hours < 10 ? `0${hours}` : `${hours}`;
-        const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
-        const formattedSeconds =
-            remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
-
-        return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-    },
-    name() {
-        const timer = this.selectedSchedule.find((t) => t.id === this.idTimer);
-        return timer ? timer.name : 0;
-    },
-    actualSeconds() {
-        const timer = this.selectedSchedule.find((t) => t.id === this.idTimer);
-        return timer ? timer.actualSeconds : 0;
-    },
-    initialSeconds() {
-        const timer = this.selectedSchedule.find((t) => t.id === this.idTimer);
-        return timer ? timer.initialSeconds : 0;
-    },
+        name() {
+            const timer = this.selectedSchedule.find((t) => t.id === this.idTimer);
+            return timer ? timer.name : 0;
+        },
+        actualSeconds() {
+            const timer = this.selectedSchedule.find((t) => t.id === this.idTimer);
+            return timer ? timer.actualSeconds : 0;
+        },
+        initialSeconds() {
+            const timer = this.selectedSchedule.find((t) => t.id === this.idTimer);
+            return timer ? timer.initialSeconds : 0;
+        },
+        selectedTimer() {
+            return this.selectedSchedule.find((t) => t.id === this.idTimer).selected;
+        }
     },
     mounted() {},
     methods: {
         deleteTimer() {
-        useScheduleStore().removeTimerFromActiveSchedule(this.idTimer);
+            useScheduleStore().removeTimerFromActiveSchedule(this.idTimer);
         },
     },
 };
@@ -89,7 +92,7 @@ export default {
 
 <template>
     <v-card
-        color="secondary_light_2"
+        :color="selectedTimer ? 'success_light_1' : 'secondary_light_2'"
         elevated
         ma-2
         class="timer rounded"

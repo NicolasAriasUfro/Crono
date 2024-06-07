@@ -226,6 +226,7 @@ export const useGroupStore = defineStore("group", {
             for (let i = 0; i < currentTimers.length; i++) {
                 currentTimers[i].actualSeconds =
                     currentTimers[i].initialSeconds;
+                currentTimers[i].selected = false;
             }
             this.selectedTimer = 0;
         },
