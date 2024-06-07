@@ -29,6 +29,12 @@ export default {
     };
   },
   computed: {
+    isEmptyFields(){
+      if(this.nameTimer === ""){
+        return true;
+      }
+      return !(this.totalSeconds > 0);
+    },
     selectedSchedule() {
       return useScheduleStore().selectedSchedule;
     },
@@ -91,7 +97,7 @@ export default {
         ></v-text-field>
       </v-col>
     </v-row>
-    <v-btn color="success" type="submit" @click="addNewTimer">Agregar</v-btn>
+    <v-btn color="success" type="submit" @click="addNewTimer" :disabled="isEmptyFields">Agregar</v-btn>
   </v-form>
 </template>
 
