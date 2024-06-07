@@ -60,7 +60,7 @@ const ingresar = () => {
                 </v-col>
                 <v-col cols="12" md="6" class="d-flex align-center text-left">
                     <div>
-                        <h3>Gestiona horarios adicionales</h3>
+                        <h3>Agrega horarios adicionales</h3>
                         <p>
                             Crear horarios de presentación es rápido y sencillo. 
                             permitiendo una eficaz gestión del tiempo y estructura de tu proxima presentación.
@@ -82,6 +82,19 @@ const ingresar = () => {
                 <v-col cols="12" md="6" class="d-flex">
                     <v-img rounded contain max-width="550" class="img-second-ctn mr-3" :src="require('@/assets/demo/demo_theme.png')"></v-img>
                     <v-img rounded contain max-width="550" class="img-second-ctn" :src="require('@/assets/demo/demo_theme_1.png')"></v-img>
+                </v-col>
+            </v-row>
+            <v-row class="mb-10">
+                <v-col cols="12" md="6" >
+                    <v-img rounded contain max-width="550" class="img-second-ctn" :src="require('@/assets/demo/demo_groups.png')"></v-img>
+                </v-col>
+                <v-col cols="12" md="6" class="d-flex align-center text-left">
+                    <div>
+                        <h3>Únete a grupos existentes</h3>
+                        <p>
+                            Se parte de grupos ya creados y comparte horarios con tu grupo de presentación.
+                        </p>
+                    </div>
                 </v-col>
             </v-row>
             <v-row class="d-flex flex-column justify-center my-10">
