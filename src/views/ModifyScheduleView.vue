@@ -15,6 +15,7 @@ export default {
     return {
       nameSchedule: "",
       tab: null,
+      listaDeSchedules: useScheduleStore().schedules
     };
   },
   computed: {
@@ -44,7 +45,7 @@ export default {
     <v-toolbar color="primary">
       <v-tabs v-model="selectedSchedule" align-tabs="title">
         <v-tab
-          v-for="schedule in schedulesList"
+          v-for="schedule in listaDeSchedules"
           :key="schedule.id"
           :text="schedule.name"
           :value="schedule"
@@ -54,7 +55,7 @@ export default {
 
     <v-tabs-window v-model="selectedSchedule">
       <v-tabs-window-item
-        v-for="schedule in schedulesList"
+        v-for="schedule in listaDeSchedules"
         :key="schedule"
         :value="schedule"
       >
@@ -71,7 +72,7 @@ export default {
     ></v-text-field>
   </v-form>
   <v-container>
-    <v-btn color="success" @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
+    <v-btn color="success" :disabled="nameSchedule===''" @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
       Agregar Cronograma
     </v-btn>
     <v-btn color="error" @click.prevent="deleteSchedule(this.nameSchedule)">

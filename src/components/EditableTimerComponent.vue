@@ -115,7 +115,7 @@ export default {
         <v-btn color="success_light_1" @click="deleteTimer">eliminar</v-btn>
         <v-form @click.prevent>
           <v-text-field label="Nuevo Nombre" v-model="timeName"></v-text-field>
-          <v-btn color="success_light_1" @click="changeTimerName">cambiar nombre</v-btn>
+          <v-btn color="success_light_1" @click="changeTimerName" :disabled="timeName===''">cambiar nombre</v-btn>
         </v-form>
       </v-col>
     </v-row>
