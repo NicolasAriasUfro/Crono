@@ -72,7 +72,7 @@ export default {
     ></v-text-field>
   </v-form>
   <v-container>
-    <v-btn color="success" @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
+    <v-btn color="success" :disabled="nameSchedule===''" @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
       Agregar Cronograma
     </v-btn>
     <v-btn color="error" @click.prevent="deleteSchedule(this.nameSchedule)">
