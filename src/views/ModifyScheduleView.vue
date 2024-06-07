@@ -10,6 +10,10 @@ export default {
       useScheduleStore().removeSchedule(idSelectedSchedule);
       this.nameSchedule = "";
     },
+    addSchedule(){
+      useScheduleStore().addSchedule(this.nameSchedule)
+      this.nameSchedule = "";
+    }
   },
   data() {
     return {
@@ -72,7 +76,7 @@ export default {
     ></v-text-field>
   </v-form>
   <v-container>
-    <v-btn color="success" :disabled="nameSchedule===''" @click.prevent="useScheduleStore().addSchedule(this.nameSchedule)">
+    <v-btn color="success" :disabled="nameSchedule===''" @click.prevent="addSchedule">
       Agregar Cronograma
     </v-btn>
     <v-btn color="error" @click.prevent="deleteSchedule(this.nameSchedule)">
