@@ -15,6 +15,7 @@ export default {
     return {
       nameSchedule: "",
       tab: null,
+      listaDeSchedules: useScheduleStore().schedules
     };
   },
   computed: {
@@ -44,7 +45,7 @@ export default {
     <v-toolbar color="primary">
       <v-tabs v-model="selectedSchedule" align-tabs="title">
         <v-tab
-          v-for="schedule in schedulesList"
+          v-for="schedule in listaDeSchedules"
           :key="schedule.id"
           :text="schedule.name"
           :value="schedule"
@@ -54,7 +55,7 @@ export default {
 
     <v-tabs-window v-model="selectedSchedule">
       <v-tabs-window-item
-        v-for="schedule in schedulesList"
+        v-for="schedule in listaDeSchedules"
         :key="schedule"
         :value="schedule"
       >
