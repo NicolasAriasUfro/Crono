@@ -1,26 +1,31 @@
-use axum::{routing::get, Router};
+mod handler;
+mod router;
+mod model;
+mod utils;
+mod dto;
+mod service;
+mod error;
+mod repository;
+
+use router::init_router;
 use sqlx::PgPool;
 
-async fn hello_world() -> &'static str {
-    "Hello, world!"
-}
-
 #[derive(Clone)]
-struct MyState {
+struct AppState {
     db: PgPool
 }
-
 
 #[shuttle_runtime::main]
 async fn main(#[shuttle_shared_db::Postgres(
 
 )] db: PgPool,) -> shuttle_axum::ShuttleAxum {
+    dotenv::dotenv().ok();
     sqlx::migrate!()
         .run(&db)
         .await
         .expect("Failed to run migrations");
-    let state = MyState { db };
-    let router = Router::new().route("/", get(hello_world));
+    let state = AppState { db };
+    let router = init_router(state);
 
     Ok(router.into())
 }

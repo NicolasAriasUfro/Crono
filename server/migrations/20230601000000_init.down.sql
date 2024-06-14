@@ -1,0 +1,13 @@
+-- INSERT INTO timer_group (timer_group_id, name)
+-- VALUES
+-- (1,'ESP1'),
+-- (2,'PRESENTACIÓN ISOFT')
+-- ON CONFLICT DO NOTHING;
+
+-- INSERT INTO timer (timer_id, name, seconds, timer_group)
+-- VALUES
+-- (1, 'Intro', 5, 1),
+-- (2, 'Objetivo', 5, 1),
+-- (3, 'Tema1', 300, 1),
+-- (4, 'Intro', 5, 2)
+-- ON CONFLICT DO NOTHING;
